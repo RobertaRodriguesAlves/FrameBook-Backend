@@ -1,12 +1,15 @@
 using Autofac;
 using Framebook.Infra.CrossCutting.IOC;
 using Framebook.Infra.Data;
+using HealthChecks.UI.Client;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System;
 
 namespace FrameBook.AuthAPI
 {
@@ -24,9 +27,18 @@ namespace FrameBook.AuthAPI
         {
             services.AddSingleton<IConfiguration>(Configuration);
 
-            services.AddDbContext<DatabaseContext>(options => options.UseMySql(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddDbContext<DatabaseContext>(options => options.UseMySql(Configuration.GetConnectionString("DefaultConnection"), new MySqlServerVersion(new Version(8, 0, 11))));
 
             services.AddControllers();
+
+            services.AddHealthChecks().AddMySql(Configuration.GetConnectionString("DefaultConnection"));
+
+            services.AddHealthChecksUI(options =>
+            {
+                options.SetEvaluationTimeInSeconds(5);
+                options.MaximumHistoryEntriesPerEndpoint(10);
+                options.AddHealthCheckEndpoint("API com Health Checks", "/health");
+            }).AddInMemoryStorage();
 
             services.AddSwaggerGen(c =>
             {
@@ -57,14 +69,23 @@ namespace FrameBook.AuthAPI
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapHealthChecks("/healthcheck");
             });
 
             app.UseSwagger();
-            app.UseSwaggerUI(opt => {
+            app.UseSwaggerUI(opt =>
+            {
 
                 opt.SwaggerEndpoint("/swagger/v1/Swagger.json", "Swagger V1");
 
             });
+
+            app.UseHealthChecks("/health", new HealthCheckOptions
+            {
+                Predicate = p => true,
+                ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
+            });
+            app.UseHealthChecksUI(options => { options.UIPath = "/dashboard"; });
         }
     }
 }
