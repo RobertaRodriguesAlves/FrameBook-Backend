@@ -17,6 +17,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Serilog;
 
 namespace FrameBook.StackAPI
 {
@@ -79,6 +80,13 @@ namespace FrameBook.StackAPI
             app.UseRouting();
 
             app.UseSentryTracing();
+
+            //Serilog Config
+            Log.Logger = new LoggerConfiguration()
+                .MinimumLevel.Debug()
+                .WriteTo.Console()
+                .WriteTo.File("logs/stack-api.txt", rollingInterval: RollingInterval.Day)
+                .CreateLogger();
 
             app.UseAuthentication();
             app.UseAuthorization();

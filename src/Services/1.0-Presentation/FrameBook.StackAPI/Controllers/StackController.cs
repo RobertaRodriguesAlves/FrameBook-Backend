@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using Sentry;
 using System;
+using Serilog;
 
 namespace Framebook.StackAPI.Controllers
 {
@@ -22,7 +23,7 @@ namespace Framebook.StackAPI.Controllers
         {
             _businessServiceGestaoStack = businessServiceGestaoStack;
             _mapper = mapper;
-            _sentryHub = sentryHub;
+            _sentryHub = sentryHub;         
         }
 
         [HttpGet]
@@ -33,6 +34,8 @@ namespace Framebook.StackAPI.Controllers
 
             try
             {
+                Log.Information("GetAll requested");
+
                 var test = _businessServiceGestaoStack.GetAll();
 
                 //Ok for sentry request performance test
@@ -48,7 +51,7 @@ namespace Framebook.StackAPI.Controllers
                 //Send request exception for sentry log server
                 SentrySdk.CaptureException(e);
                 throw;
-            }          
+            }
         }
 
         [HttpGet("{id}")]
