@@ -1,7 +1,9 @@
 using Autofac;
 using Framebook.Infra.CrossCutting.IOC;
 using Framebook.Infra.Data;
+using HealthChecks.UI.Client;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -28,6 +30,15 @@ namespace FrameBook.ProfissionalAPI
             new MySqlServerVersion(new Version(8, 0, 11))));
 
             services.AddControllers();
+
+            services.AddHealthChecks().AddMySql(Configuration.GetConnectionString("DefaultConnection"));
+
+            services.AddHealthChecksUI(options =>
+            {
+                options.SetEvaluationTimeInSeconds(5);
+                options.MaximumHistoryEntriesPerEndpoint(10);
+                options.AddHealthCheckEndpoint("Health Checks - Profissional API", "/health");
+            }).AddInMemoryStorage();
 
             services.AddSwaggerGen(c => {
                 c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo { Title = "Swagger", Version = "v1" });
@@ -72,6 +83,13 @@ namespace FrameBook.ProfissionalAPI
                 opt.SwaggerEndpoint("/swagger/v1/Swagger.json", "Swagger V1");
 
             });
+
+            app.UseHealthChecks("/health", new HealthCheckOptions
+            {
+                Predicate = p => true,
+                ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
+            });
+            app.UseHealthChecksUI(options => { options.UIPath = "/dashboard"; });
         }
     }
 }
