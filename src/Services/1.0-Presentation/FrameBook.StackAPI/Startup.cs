@@ -34,7 +34,8 @@ namespace FrameBook.StackAPI
         {
             services.AddHealthChecks();
 
-            services.AddDbContext<DatabaseContext>(options => options.UseMySql(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddDbContext<DatabaseContext>(options => options.UseMySql(Configuration.GetConnectionString("DefaultConnection"),
+            new MySqlServerVersion(new Version(8, 0, 11))));
             services.AddControllers();
 
             services.AddSwaggerGen(c => {
