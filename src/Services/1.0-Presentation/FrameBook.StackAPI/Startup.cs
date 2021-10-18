@@ -1,19 +1,22 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Mime;
+using System.Text.Json;
 using System.Threading.Tasks;
 using Autofac;
 using Framebook.Infra.CrossCutting.IOC;
 using Framebook.Infra.Data;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 
 namespace FrameBook.StackAPI
 {
@@ -29,6 +32,8 @@ namespace FrameBook.StackAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddHealthChecks();
+
             services.AddDbContext<DatabaseContext>(options => options.UseMySql(Configuration.GetConnectionString("DefaultConnection")));
             services.AddControllers();
 
@@ -50,9 +55,28 @@ namespace FrameBook.StackAPI
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseHealthChecks("/status-json",
+                new HealthCheckOptions()
+                {
+                    ResponseWriter = async (context, report) =>
+                    {
+                        var result = JsonSerializer.Serialize(
+                            new
+                            {
+                                currentTime = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"),
+                                statusApplication = report.Status.ToString(),
+                            });
+
+                        context.Response.ContentType = MediaTypeNames.Application.Json;
+                        await context.Response.WriteAsync(result);
+                    }
+                });
+
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseSentryTracing();
 
             app.UseAuthentication();
             app.UseAuthorization();

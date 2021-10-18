@@ -3,6 +3,8 @@ using Framebook.Business.Interfaces;
 using Framebook.Business.DTO.DTO;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using Sentry;
+using System;
 
 namespace Framebook.StackAPI.Controllers
 {
@@ -10,21 +12,43 @@ namespace Framebook.StackAPI.Controllers
     [ApiController]
     public class StackController : ControllerBase
     {
+        private readonly IHub _sentryHub;
+
         private readonly IBusinessServiceGestaoStack _businessServiceGestaoStack;
         IMapper _mapper;
 
         public StackController(IBusinessServiceGestaoStack businessServiceGestaoStack,
-            IMapper mapper)
+            IHub sentryHub, IMapper mapper)
         {
             _businessServiceGestaoStack = businessServiceGestaoStack;
             _mapper = mapper;
+            _sentryHub = sentryHub;
         }
 
         [HttpGet]
         public ActionResult<IEnumerable<string>> Get()
         {
-            var test = _businessServiceGestaoStack.GetAll();
-            return Ok(test);
+            //For sentry performance test
+            var childSpan = _sentryHub.GetSpan()?.StartChild("additional-work");
+
+            try
+            {
+                var test = _businessServiceGestaoStack.GetAll();
+
+                //Ok for sentry request performance test
+                childSpan?.Finish(SpanStatus.Ok);
+
+                return Ok(test);
+            }
+            catch (Exception e)
+            {
+                //Finish for sentry request performance test
+                childSpan?.Finish(e);
+
+                //Send request exception for sentry log server
+                SentrySdk.CaptureException(e);
+                throw;
+            }          
         }
 
         [HttpGet("{id}")]

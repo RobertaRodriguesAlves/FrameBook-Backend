@@ -17,6 +17,15 @@ namespace FrameBook.AuthAPI
                .ConfigureWebHostDefaults(webBuilder =>
                {
                    webBuilder.UseStartup<Startup>();
+
+                   #region Sentry
+                   webBuilder.UseSentry(o =>
+                   {
+                       o.Dsn = "https://64495a904e4348bfb1988222dcd0a53f@o1042932.ingest.sentry.io/6012147";
+                       o.Debug = true;
+                       o.TracesSampleRate = 1.0;
+                   });
+                   #endregion
                });
     }
 }
