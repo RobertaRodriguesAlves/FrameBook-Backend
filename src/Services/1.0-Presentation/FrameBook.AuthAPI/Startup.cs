@@ -39,7 +39,7 @@ namespace FrameBook.AuthAPI
             {
                 options.SetEvaluationTimeInSeconds(5);
                 options.MaximumHistoryEntriesPerEndpoint(10);
-                options.AddHealthCheckEndpoint("API com Health Checks", "/health");
+                options.AddHealthCheckEndpoint("Health Checks - Auth API", "/health");
             }).AddInMemoryStorage();
 
             services.AddSwaggerGen(c =>
@@ -78,7 +78,6 @@ namespace FrameBook.AuthAPI
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
-                endpoints.MapHealthChecks("/healthcheck");
             });
 
             app.UseSwagger();
