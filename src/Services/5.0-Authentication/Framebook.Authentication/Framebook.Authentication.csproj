@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+  	<TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Authentication" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.20" />
+    <PackageReference Include="ncrontab" Version="3.3.1" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\2.0-Business\Framebook.Business.DTO\Framebook.Business.DTO.csproj" />
+    <ProjectReference Include="..\..\3.0-Domain\Framebook.Domain\Framebook.Domain.csproj" />
+    <ProjectReference Include="..\..\4.0-Infrastructure\4.2-CrossCutting\Framebook.Infra.CrossCutting.Adapter\Framebook.Infra.CrossCutting.Adapter.csproj" />
+  </ItemGroup>
+
+</Project>

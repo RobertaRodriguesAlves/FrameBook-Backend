@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+  	<TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+  	<PackageReference Include="AutoMapper" Version="10.1.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\2.0-Business\Framebook.Business.DTO\Framebook.Business.DTO.csproj" />
+    <ProjectReference Include="..\..\..\3.0-Domain\Framebook.Domain\Framebook.Domain.csproj" />
+  </ItemGroup>
+
+</Project>

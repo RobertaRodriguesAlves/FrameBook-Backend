@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net5.0</TargetFramework>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="AutoMapper" Version="10.1.1" />
+		<PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\..\3.0-Domain\Framebook.Domain\Framebook.Domain.csproj" />
+	  <ProjectReference Include="..\..\4.0-Infrastructure\4.2-CrossCutting\Framebook.Infra.CrossCutting.Adapter\Framebook.Infra.CrossCutting.Adapter.csproj" />
+	  <ProjectReference Include="..\Framebook.Business.DTO\Framebook.Business.DTO.csproj" />
+	</ItemGroup>
+
+</Project>

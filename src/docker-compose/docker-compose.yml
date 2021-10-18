@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+    apigateway:
+        build:
+            context: .
+            dockerfile: FrwkBootCamp\Web.FrameBook.HttpAggregator\Dockerfile
+
+    api.profissional:
+        build:
+            context: .
+            dockerfile: FrwkBootCamp\FrwkBootCamp.PessoaAPI\Dockerfile
+
+    api.stack:
+        build:
+            context: .
+            dockerfile: FrwkBootCamp\FrameBook.StackAPI\Dockerfile
+
+    api.auth:
+        build:
+            context: .
+            dockerfile: FrwkBootCamp\FrameBook.AuthAPI\Dockerfile
