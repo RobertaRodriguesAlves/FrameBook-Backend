@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Serilog;
 using System;
 
 namespace FrameBook.ProfissionalAPI
@@ -49,6 +50,13 @@ namespace FrameBook.ProfissionalAPI
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            //Serilog config
+            Log.Logger = new LoggerConfiguration()
+                .MinimumLevel.Debug()
+                .WriteTo.Console()
+                .WriteTo.File("logs/profissional-api.txt", rollingInterval: RollingInterval.Day)
+                .CreateLogger();
 
             app.UseAuthentication();
             app.UseAuthorization();

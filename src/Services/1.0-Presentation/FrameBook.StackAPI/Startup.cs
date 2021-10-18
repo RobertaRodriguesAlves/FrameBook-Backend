@@ -81,7 +81,7 @@ namespace FrameBook.StackAPI
 
             app.UseSentryTracing();
 
-            //Serilog Config
+            //Serilog config
             Log.Logger = new LoggerConfiguration()
                 .MinimumLevel.Debug()
                 .WriteTo.Console()

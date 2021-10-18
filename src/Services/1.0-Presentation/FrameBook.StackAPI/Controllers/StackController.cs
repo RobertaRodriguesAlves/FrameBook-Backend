@@ -23,7 +23,7 @@ namespace Framebook.StackAPI.Controllers
         {
             _businessServiceGestaoStack = businessServiceGestaoStack;
             _mapper = mapper;
-            _sentryHub = sentryHub;         
+            _sentryHub = sentryHub;
         }
 
         [HttpGet]
@@ -34,7 +34,8 @@ namespace Framebook.StackAPI.Controllers
 
             try
             {
-                Log.Information("GetAll requested");
+                //Serilog Example 
+                Log.Information("Requested: GetAll");
 
                 var test = _businessServiceGestaoStack.GetAll();
 
@@ -51,7 +52,7 @@ namespace Framebook.StackAPI.Controllers
                 //Send request exception for sentry log server
                 SentrySdk.CaptureException(e);
                 throw;
-            }
+            }          
         }
 
         [HttpGet("{id}")]

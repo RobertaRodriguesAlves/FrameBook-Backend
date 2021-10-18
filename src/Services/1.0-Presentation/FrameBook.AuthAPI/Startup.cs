@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Serilog;
 using System;
 
 namespace FrameBook.AuthAPI
@@ -63,6 +64,13 @@ namespace FrameBook.AuthAPI
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            //Serilog config
+            Log.Logger = new LoggerConfiguration()
+                .MinimumLevel.Debug()
+                .WriteTo.Console()
+                .WriteTo.File("logs/auth-api.txt", rollingInterval: RollingInterval.Day)
+                .CreateLogger();
 
             app.UseAuthorization();
             app.UseAuthorization();
