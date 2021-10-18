@@ -27,7 +27,8 @@ namespace FrameBook.AuthAPI
         {
             services.AddSingleton<IConfiguration>(Configuration);
 
-            services.AddDbContext<DatabaseContext>(options => options.UseMySql(Configuration.GetConnectionString("DefaultConnection"), new MySqlServerVersion(new Version(8, 0, 11))));
+            services.AddDbContext<DatabaseContext>(options => options.UseMySql(Configuration.GetConnectionString("DefaultConnection"),
+            new MySqlServerVersion(new Version(8, 0, 11))));
 
             services.AddControllers();
 
