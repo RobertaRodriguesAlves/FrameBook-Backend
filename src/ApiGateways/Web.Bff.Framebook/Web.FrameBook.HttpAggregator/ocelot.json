@@ -32,10 +32,10 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": 64980
+          "Port": 44348
         }
       ],
-      "UpstreamPathTemplate": "/api/stack{everything}",
+      "UpstreamPathTemplate": "/api/stack/{everything}",
       "UpstreamHttpMethod": [ "Get", "Post", "Put", "Delete" ],
       "SwaggerKey": "stack"
     }
@@ -51,6 +51,7 @@
         }
       ]
     },
+
     {
       "Key": "profissional",
       "Config": [
@@ -67,7 +68,7 @@
         {
           "Name": "Stack API",
           "Version": "v1",
-          "Url": "http://localhost:64980/swagger/v1/swagger.json"
+          "Url": "https://localhost:44348/swagger/v1/swagger.json"
         }
       ]
     }
