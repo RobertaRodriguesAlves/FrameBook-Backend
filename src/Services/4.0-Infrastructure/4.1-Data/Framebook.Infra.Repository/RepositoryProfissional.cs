@@ -14,10 +14,25 @@ namespace Framebook.Infra.Repository
             _context = Context;
         }
 
-        public Profissional GetByEmail(string email)
+        public Profissional GetByEmail(string email, string senha)
         {
             var profissional = _context.Profissionais.Where(p => p.Email == email.ToLower()).FirstOrDefault();
-            return profissional;
+            if (profissional != null)
+            {
+                if (senha != null)
+                {
+                    if (BCrypt.Net.BCrypt.Verify(senha, profissional.Senha))
+                    {
+                        return profissional;
+                    }
+                }
+
+                return profissional;
+
+            }
+
+            return null;
+
         }
     }
 }

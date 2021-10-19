@@ -30,9 +30,9 @@ namespace Framebook.Business.Services
             return _mapper.Map<IEnumerable<ProfissionalDTO>>(objProfissionais);
         }
 
-        public ProfissionalDTO GetByEmail(string email)
+        public ProfissionalDTO GetByEmail(string email, string senha)
         {
-            var objProfissional = _serviceProfissional.GetByEmail(email);
+            var objProfissional = _serviceProfissional.GetByEmail(email, senha);
             if (objProfissional == null)
                 return null;
             return _mapper.Map<ProfissionalDTO>(objProfissional);

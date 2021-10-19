@@ -5,6 +5,6 @@ namespace Framebook.Domain.Interfaces.Services
 {
     public interface IServiceProfissional : IServiceBase<Profissional>
     {
-        ProfissionalDTO GetByEmail(string email);
+        ProfissionalDTO GetByEmail(string email, string senha);
     }
 }

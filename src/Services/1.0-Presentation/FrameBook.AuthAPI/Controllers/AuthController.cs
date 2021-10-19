@@ -54,7 +54,7 @@ namespace FrameBook.AuthAPI.Controllers
                 if (profissionalDTO == null)
                     return NotFound(new { message = "Usuário não existe." });
 
-                var professional = _businessServiceGestaoProfissional.GetByEmail(profissionalDTO.Email);
+                var professional = _businessServiceGestaoProfissional.GetByEmail(profissionalDTO.Email, profissionalDTO.Senha);
 
                 if (professional == null)
                     return NotFound(new { message = "Usuário não existe." });

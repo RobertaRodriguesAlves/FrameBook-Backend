@@ -32,7 +32,7 @@ namespace FrameBook.ProfissionalAPI.Controllers
         [HttpGet("{email}")]
         public ActionResult<string> Get(string email)
         {
-            var profissional = _businessServiceGestaoProfissional.GetByEmail(email);
+            var profissional = _businessServiceGestaoProfissional.GetByEmail(email, null);
             var profissionalDTO = _mapper.Map<ProfissionalDTO>(profissional);
             return Ok(profissionalDTO);
         }
