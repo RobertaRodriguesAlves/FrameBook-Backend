@@ -1,7 +1,9 @@
 using Autofac;
 using Framebook.Infra.CrossCutting.IOC;
 using Framebook.Infra.Data;
+using HealthChecks.UI.Client;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -29,9 +31,23 @@ namespace FrameBook.ProfissionalAPI
 
             services.AddControllers();
 
+            services.AddHealthChecks().AddMySql(Configuration.GetConnectionString("DefaultConnection"));
+
+            services.AddHealthChecksUI(options =>
+            {
+                options.SetEvaluationTimeInSeconds(5);
+                options.MaximumHistoryEntriesPerEndpoint(10);
+                options.AddHealthCheckEndpoint("Health Checks - Profissional API", "/health");
+            }).AddInMemoryStorage();
+
             services.AddSwaggerGen(c => {
                 c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo { Title = "Swagger", Version = "v1" });
             });
+
+            //Serilog config
+            Log.Logger = new LoggerConfiguration()
+                .ReadFrom.Configuration(Configuration)
+                .CreateLogger();
         }
 
         public void ConfigureContainer(ContainerBuilder Builder)
@@ -49,14 +65,9 @@ namespace FrameBook.ProfissionalAPI
 
             app.UseHttpsRedirection();
 
-            app.UseRouting();
+            app.UseSerilogRequestLogging();
 
-            //Serilog config
-            Log.Logger = new LoggerConfiguration()
-                .MinimumLevel.Debug()
-                .WriteTo.Console()
-                .WriteTo.File("logs/profissional-api.txt", rollingInterval: RollingInterval.Day)
-                .CreateLogger();
+            app.UseRouting();
 
             app.UseAuthentication();
             app.UseAuthorization();
@@ -72,6 +83,13 @@ namespace FrameBook.ProfissionalAPI
                 opt.SwaggerEndpoint("/swagger/v1/Swagger.json", "Swagger V1");
 
             });
+
+            app.UseHealthChecks("/health", new HealthCheckOptions
+            {
+                Predicate = p => true,
+                ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
+            });
+            app.UseHealthChecksUI(options => { options.UIPath = "/dashboard"; });
         }
     }
 }

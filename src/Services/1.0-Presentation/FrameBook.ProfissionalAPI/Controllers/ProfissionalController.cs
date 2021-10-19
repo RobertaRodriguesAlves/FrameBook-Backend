@@ -2,6 +2,7 @@
 using Framebook.Business.DTO.DTO;
 using Framebook.Business.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
 
 namespace FrameBook.ProfissionalAPI.Controllers
@@ -11,13 +12,15 @@ namespace FrameBook.ProfissionalAPI.Controllers
     public class ProfissionalController : ControllerBase
     {
         private readonly IBusinessServiceGestaoProfissional _businessServiceGestaoProfissional;
-        IMapper _mapper;
+        private readonly IMapper _mapper;
+        private readonly ILogger<ProfissionalController> _logger;
 
         public ProfissionalController(IBusinessServiceGestaoProfissional businessServiceGestaoProfissional,
-            IMapper mapper)
+            IMapper mapper, ILogger<ProfissionalController> logger)
         {
             _businessServiceGestaoProfissional = businessServiceGestaoProfissional;
             _mapper = mapper;
+            _logger = logger;
         }
 
         [HttpGet]
