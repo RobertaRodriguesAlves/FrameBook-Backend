@@ -1,6 +1,8 @@
 using Autofac.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
+using Serilog;
 
 namespace FrameBook.ProfissionalAPI
 {
@@ -13,6 +15,12 @@ namespace FrameBook.ProfissionalAPI
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
+                .ConfigureAppConfiguration((hostingContext, config) =>
+                {
+                    config
+                    .SetBasePath(hostingContext.HostingEnvironment.ContentRootPath)
+                    .AddJsonFile($"appsettings.json").Build();
+                })
                 .UseServiceProviderFactory(new AutofacServiceProviderFactory())
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
@@ -26,6 +34,7 @@ namespace FrameBook.ProfissionalAPI
                         o.TracesSampleRate = 1.0;
                     });
                     #endregion
-                });
+                })
+            .UseSerilog();
     }
 }

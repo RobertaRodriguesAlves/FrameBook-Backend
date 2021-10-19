@@ -43,6 +43,11 @@ namespace FrameBook.ProfissionalAPI
             services.AddSwaggerGen(c => {
                 c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo { Title = "Swagger", Version = "v1" });
             });
+
+            //Serilog config
+            Log.Logger = new LoggerConfiguration()
+                .ReadFrom.Configuration(Configuration)
+                .CreateLogger();
         }
 
         public void ConfigureContainer(ContainerBuilder Builder)
@@ -60,14 +65,9 @@ namespace FrameBook.ProfissionalAPI
 
             app.UseHttpsRedirection();
 
-            app.UseRouting();
+            app.UseSerilogRequestLogging();
 
-            //Serilog config
-            Log.Logger = new LoggerConfiguration()
-                .MinimumLevel.Debug()
-                .WriteTo.Console()
-                .WriteTo.File("logs/profissional-api.txt", rollingInterval: RollingInterval.Day)
-                .CreateLogger();
+            app.UseRouting();
 
             app.UseAuthentication();
             app.UseAuthorization();
