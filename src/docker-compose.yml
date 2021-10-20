@@ -1,0 +1,40 @@
+version: '3.4'
+
+services:
+  framebook.authapi:
+    image: ${DOCKER_REGISTRY-}framebookauthapi
+    build:
+      context: .
+      dockerfile: Services/1.0-Presentation/FrameBook.AuthAPI/Dockerfile
+
+  framebook.profissionalapi:
+    image: ${DOCKER_REGISTRY-}framebookprofissionalapi
+    build:
+      context: .
+      dockerfile: Services/1.0-Presentation/FrameBook.ProfissionalAPI/Dockerfile
+
+
+  framebook.stackapi:
+    image: ${DOCKER_REGISTRY-}framebookstackapi
+    build:
+      context: .
+      dockerfile: Services/1.0-Presentation/FrameBook.StackAPI/Dockerfile
+
+
+  web.framebook.httpaggregator:
+    image: ${DOCKER_REGISTRY-}webframebookhttpaggregator
+    build:
+      context: .
+      dockerfile: ApiGateways/Web.Bff.Framebook/Web.FrameBook.HttpAggregator/Dockerfile
+
+
+
+  mysqldb:
+    image: mysql:5.7
+    volumes:
+      - mysql-db:/var/lib/mysql
+
+volumes:    
+  mysql-db:
+   
+    
