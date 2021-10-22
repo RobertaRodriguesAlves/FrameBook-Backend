@@ -5,6 +5,7 @@ services:
     restart: on-failure
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__DefaultConnection=server=mysqldb;port=3306;database=dbframebook;uid=root;password=framework
     ports:
       - 8001:80
 
@@ -12,6 +13,7 @@ services:
     restart: on-failure
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__DefaultConnection=server=mysqldb;port=3306;database=dbframebook;uid=root;password=framework
     ports:
       - 8002:80
 
@@ -26,6 +28,7 @@ services:
     restart: on-failure
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__DefaultConnection=server=mysqldb;port=3306;database=dbframebook;uid=root;password=framework
     ports:
       - 8004:80
 
