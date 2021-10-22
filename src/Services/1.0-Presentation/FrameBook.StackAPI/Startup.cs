@@ -26,11 +26,16 @@ namespace FrameBook.StackAPI
         {
             services.AddHealthChecks();
 
+            //var mongoConnection = Configuration.GetValue<string>("mongoConnection");
+
             services.Configure<MongoDbSettings>(options =>
             {
+                //options.ConnectionString = mongoConnection;
                 options.ConnectionString = Configuration.GetSection("StackDatabaseSettings:ConnectionString").Value;
                 options.Database = Configuration.GetSection("StackDatabaseSettings:Database").Value;
+                //options.Database = "MongoDb";
                 options.Collection = Configuration.GetSection("StackDatabaseSettings:Collection").Value;
+                //options.Collection = "Stacks";
             });
 
             services.AddControllers();

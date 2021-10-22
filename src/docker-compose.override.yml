@@ -21,6 +21,7 @@ services:
     restart: on-failure
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
+      - mongoConnection=mongodb:localhost:27017
     ports:
       - 8003:80
 
@@ -40,6 +41,11 @@ services:
       MYSQL_USER: 'framebook'
       MYSQL_ROOT_PASSWORD: 'framework'
       MYSQL_DATABASE: 'dbframework'
+
+  mongodb:
+    container_name: mongodb
+    ports:
+      - 27017:27017
       
       
   
