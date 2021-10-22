@@ -26,13 +26,14 @@ services:
     build:
       context: .
       dockerfile: ApiGateways/Web.Bff.Framebook/Web.FrameBook.HttpAggregator/Dockerfile
-
-
-
+      
   mysqldb:
     image: mysql:5.7
     volumes:
       - mysql-db:/var/lib/mysql
+
+  mongodb:
+    image: mongo:5.0.3
 
 volumes:    
   mysql-db:
