@@ -46,6 +46,11 @@ namespace FrameBook.AuthAPI
             {
                 c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo { Title = "AuthAPI", Version = "v1" });
             });
+
+            //Serilog config
+            Log.Logger = new LoggerConfiguration()
+                .ReadFrom.Configuration(Configuration)
+                .CreateLogger();
         }
 
         public void ConfigureContainer(ContainerBuilder Builder)
@@ -64,13 +69,6 @@ namespace FrameBook.AuthAPI
             app.UseHttpsRedirection();
 
             app.UseRouting();
-
-            //Serilog config
-            Log.Logger = new LoggerConfiguration()
-                .MinimumLevel.Debug()
-                .WriteTo.Console()
-                .WriteTo.File("logs/auth-api.txt", rollingInterval: RollingInterval.Day)
-                .CreateLogger();
 
             app.UseAuthorization();
             app.UseAuthorization();

@@ -1,10 +1,15 @@
 ﻿using Framebook.Business.DTO.DTO;
-using Framebook.Domain.Models;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Framebook.Domain.Interfaces.Services
 {
-    public interface IServiceStack : IServiceBase<Stack>
+    public interface IServiceStack
     {
-        StackDTO GetById(int id);
+        Task<StackDTO> GetById(string id);
+        Task<bool> PostStack(StackDTO stack);
+        Task<bool> DeleteById(string id);
+        Task<IEnumerable<StackDTO>> GetAllStacks();
+        Task<bool> UpdateStack(StackDTO stack);
     }
 }
