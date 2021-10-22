@@ -1,11 +1,9 @@
-﻿using AutoMapper;
+﻿using Framebook.Business.DTO.DTO;
 using Framebook.Business.Interfaces;
-using Framebook.Business.DTO.DTO;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
-using Sentry;
 using System;
-using Serilog;
+using System.Net;
+using System.Threading.Tasks;
 
 namespace Framebook.StackAPI.Controllers
 {
@@ -13,84 +11,109 @@ namespace Framebook.StackAPI.Controllers
     [ApiController]
     public class StackController : ControllerBase
     {
-        private readonly IHub _sentryHub;
-
         private readonly IBusinessServiceGestaoStack _businessServiceGestaoStack;
-        IMapper _mapper;
 
-        public StackController(IBusinessServiceGestaoStack businessServiceGestaoStack,
-            IHub sentryHub, IMapper mapper)
+        public StackController(IBusinessServiceGestaoStack businessServiceGestaoStack)
         {
             _businessServiceGestaoStack = businessServiceGestaoStack;
-            _mapper = mapper;
-            _sentryHub = sentryHub;
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<string>> Get()
+        public async Task<ActionResult> GetAllStacks()
         {
-            //For sentry performance test
-            var childSpan = _sentryHub.GetSpan()?.StartChild("additional-work");
-
             try
             {
-                //Serilog Example 
-                Log.Information("Requested: GetAll");
+                var result = await _businessServiceGestaoStack.GetAllStacks();
+                if (result == null)
+                    return NotFound();
 
-                var test = _businessServiceGestaoStack.GetAll();
-
-                //Ok for sentry request performance test
-                childSpan?.Finish(SpanStatus.Ok);
-
-                return Ok(test);
+                return Ok(result);
             }
-            catch (Exception e)
+            catch (ArgumentException ex)
             {
-                //Finish for sentry request performance test
-                childSpan?.Finish(e);
-
-                //Send request exception for sentry log server
-                SentrySdk.CaptureException(e);
-                throw;
-            }          
+                return StatusCode((int)HttpStatusCode.InternalServerError, ex.Message);
+            }
         }
 
-        [HttpGet("{id}")]
-        public ActionResult<string> Get(int id)
+        [HttpGet]
+        [Route("{id}")]
+        public async Task<ActionResult> GetById(string id)
         {
-            var Stack = _businessServiceGestaoStack.GetById(id);
-            var StackDTO = _mapper.Map<StackDTO>(Stack);
-            return Ok(StackDTO);
+            try
+            {
+                var result = await _businessServiceGestaoStack.GetById(id);
+                if (result == null)
+                    return NotFound();
+
+                return Ok(result);
+            }
+            catch (ArgumentException ex)
+            {
+                return StatusCode((int)HttpStatusCode.InternalServerError, ex.Message);
+            }
         }
 
         [HttpPost]
-        public ActionResult Post([FromBody] StackDTO StackDTO)
+        public async Task<ActionResult> Post([FromBody] StackDTO stack)
         {
-            if (StackDTO == null)
-                return NotFound();
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    var result = await _businessServiceGestaoStack.PostStack(stack);
+                    if (result == false)
+                        return BadRequest();
 
-            _businessServiceGestaoStack.Add(StackDTO);
-            return Ok("Stack cadastrada com sucesso!");
-        }
-
-        [HttpPut]
-        public ActionResult Put([FromBody] StackDTO StackDTO)
-        {
-            if (StackDTO == null)
-                return NotFound();
-
-            _businessServiceGestaoStack.Update(StackDTO);
-            return Ok("Stack atualizada com sucesso!");
+                    return StatusCode((int)HttpStatusCode.Created, result);
+                }
+                else
+                    return StatusCode((int)HttpStatusCode.BadRequest, ModelState);
+            }
+            catch (ArgumentException ex)
+            {
+                return StatusCode((int)HttpStatusCode.InternalServerError, ex.Message);
+            }
         }
 
         [HttpDelete]
-        public ActionResult Delete([FromBody] StackDTO StackDTO)
+        [Route("{id}")]
+        public async Task<ActionResult> Delete(string id)
         {
-            if (StackDTO == null)
-                return NotFound();
+            try
+            {
+                if (!ModelState.IsValid)
+                    return BadRequest(ModelState);
 
-            _businessServiceGestaoStack.Remove(StackDTO);
-            return Ok("Stack removida com sucesso!");
+                var result = await _businessServiceGestaoStack.DeleteById(id);
+                if (result == false)
+                    return BadRequest();
+
+                return Ok(result);
+            }
+            catch (ArgumentException ex)
+            {
+                return StatusCode((int)HttpStatusCode.InternalServerError, ex.Message);
+            }
+        }
+
+        [HttpPut]
+        public async Task<ActionResult> Update([FromBody] StackDTO stack)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                    return BadRequest(ModelState);
+
+                var result = await _businessServiceGestaoStack.UpdateStack(stack);
+                if (result == false)
+                    return BadRequest();
+
+                return Ok(result);
+            }
+            catch (ArgumentException ex)
+            {
+                return StatusCode((int)HttpStatusCode.InternalServerError, ex.Message);
+            }
         }
     }
 }

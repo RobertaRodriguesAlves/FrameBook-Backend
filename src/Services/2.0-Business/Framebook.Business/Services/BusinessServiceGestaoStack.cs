@@ -1,58 +1,42 @@
-﻿using AutoMapper;
-using Framebook.Business.DTO.DTO;
+﻿using Framebook.Business.DTO.DTO;
 using Framebook.Business.Interfaces;
 using Framebook.Domain.Interfaces.Services;
-using Framebook.Domain.Models;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Framebook.Business.Services
 {
     public class BusinessServiceGestaoStack : IBusinessServiceGestaoStack
     {
         private readonly IServiceStack _serviceStack;
-        private readonly IMapper _mapper;
-
-        public BusinessServiceGestaoStack(IServiceStack serviceStack, IMapper mapper)
+        public BusinessServiceGestaoStack(IServiceStack serviceStack)
         {
             _serviceStack = serviceStack;
-            _mapper = mapper;
         }
 
-        public void Add(StackDTO obj)
+        public async Task<StackDTO> GetById(string id)
         {
-            var objStack = _mapper.Map<Stack>(obj);
-            _serviceStack.Add(objStack);
+            return await _serviceStack.GetById(id);
         }
 
-        public IEnumerable<StackDTO> GetAll()
+        public async Task<bool> PostStack(StackDTO stack)
         {
-            var objStack = _serviceStack.GetAll();
-            return _mapper.Map<IEnumerable<StackDTO>>(objStack);
+            return await _serviceStack.PostStack(stack);
         }
 
-        public StackDTO GetById(int id)
+        public async Task<bool> DeleteById(string id)
         {
-            var objStack = _serviceStack.GetById(id);
-            if (objStack == null)
-                return null;
-            return _mapper.Map<StackDTO>(objStack);
+            return await _serviceStack.DeleteById(id);
         }
 
-        public void Remove(StackDTO obj)
+        public async Task<IEnumerable<StackDTO>> GetAllStacks()
         {
-            var objStack = _mapper.Map<Stack>(obj);
-            _serviceStack.Remove(objStack);
+            return await _serviceStack.GetAllStacks();
         }
 
-        public void Update(StackDTO obj)
+        public async Task<bool> UpdateStack(StackDTO stack)
         {
-            var objStack = _mapper.Map<Stack>(obj);
-            _serviceStack.Update(objStack);
-        }
-
-        public void Dispose()
-        {
-            _serviceStack.Dispose();
+            return await _serviceStack.UpdateStack(stack);
         }
     }
 }

@@ -1,19 +1,10 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Mime;
-using System.Text.Json;
-using System.Threading.Tasks;
 using Autofac;
 using Framebook.Infra.CrossCutting.IOC;
 using Framebook.Infra.Data;
+using HealthChecks.UI.Client;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -35,14 +26,23 @@ namespace FrameBook.StackAPI
         {
             services.AddHealthChecks();
 
-            services.AddDbContext<DatabaseContext>(options => options.UseMySql(Configuration.GetConnectionString("DefaultConnection"),
-            new MySqlServerVersion(new Version(8, 0, 11))));
+            services.Configure<MongoDbSettings>(options =>
+            {
+                options.ConnectionString = Configuration.GetSection("StackDatabaseSettings:ConnectionString").Value;
+                options.Database = Configuration.GetSection("StackDatabaseSettings:Database").Value;
+                options.Collection = Configuration.GetSection("StackDatabaseSettings:Collection").Value;
+            });
 
             services.AddControllers();
 
             services.AddSwaggerGen(c => {
                 c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo { Title = "Swagger", Version = "v1" });
             });
+
+            //Serilog config
+            Log.Logger = new LoggerConfiguration()
+                .ReadFrom.Configuration(Configuration)
+                .CreateLogger();
         }
 
         public void ConfigureContainer(ContainerBuilder Builder)
@@ -58,35 +58,11 @@ namespace FrameBook.StackAPI
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseHealthChecks("/status-json",
-                new HealthCheckOptions()
-                {
-                    ResponseWriter = async (context, report) =>
-                    {
-                        var result = JsonSerializer.Serialize(
-                            new
-                            {
-                                currentTime = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"),
-                                statusApplication = report.Status.ToString(),
-                            });
-
-                        context.Response.ContentType = MediaTypeNames.Application.Json;
-                        await context.Response.WriteAsync(result);
-                    }
-                });
-
             app.UseHttpsRedirection();
 
             app.UseRouting();
 
             app.UseSentryTracing();
-
-            //Serilog config
-            Log.Logger = new LoggerConfiguration()
-                .MinimumLevel.Debug()
-                .WriteTo.Console()
-                .WriteTo.File("logs/stack-api.txt", rollingInterval: RollingInterval.Day)
-                .CreateLogger();
 
             app.UseAuthentication();
             app.UseAuthorization();
@@ -102,6 +78,13 @@ namespace FrameBook.StackAPI
                 opt.SwaggerEndpoint("/swagger/v1/Swagger.json", "Swagger V1");
 
             });
+
+            app.UseHealthChecks("/health", new HealthCheckOptions
+            {
+                Predicate = p => true,
+                ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
+            });
+            app.UseHealthChecksUI(options => { options.UIPath = "/dashboard"; });
         }
     }
 }
