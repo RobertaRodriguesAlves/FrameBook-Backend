@@ -3,10 +3,12 @@ using AutoMapper;
 using Framebook.Business.DTO.DTO;
 using Framebook.Business.Interfaces;
 using Framebook.Business.Services;
+using Framebook.Domain.Interfaces.DataSettings;
 using Framebook.Domain.Interfaces.Repositories;
 using Framebook.Domain.Interfaces.Services;
 using Framebook.Domain.Models;
 using Framebook.Domain.Services;
+using Framebook.Infra.Data;
 using Framebook.Infra.Repository;
 using System.Collections.Generic;
 

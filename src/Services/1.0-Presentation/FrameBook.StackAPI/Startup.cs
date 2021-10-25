@@ -1,4 +1,5 @@
 using Autofac;
+using Framebook.Domain.Interfaces.DataSettings;
 using Framebook.Infra.CrossCutting.IOC;
 using Framebook.Infra.Data;
 using HealthChecks.UI.Client;
@@ -8,6 +9,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Options;
 using Serilog;
 
 namespace FrameBook.StackAPI
@@ -26,17 +28,8 @@ namespace FrameBook.StackAPI
         {
             services.AddHealthChecks();
 
-            //var mongoConnection = Configuration.GetValue<string>("mongoConnection");
-
-            services.Configure<MongoDbSettings>(options =>
-            {
-                //options.ConnectionString = mongoConnection;
-                options.ConnectionString = Configuration.GetSection("StackDatabaseSettings:ConnectionString").Value;
-                options.Database = Configuration.GetSection("StackDatabaseSettings:Database").Value;
-                //options.Database = "MongoDb";
-                options.Collection = Configuration.GetSection("StackDatabaseSettings:Collection").Value;
-                //options.Collection = "Stacks";
-            });
+            services.Configure<MongoDbSettings>(Configuration.GetSection(nameof(MongoDbSettings)));
+            services.AddSingleton<IMongoDbSettings>(serviceProvider => serviceProvider.GetRequiredService<IOptions<MongoDbSettings>>().Value);
 
             services.AddControllers();
 

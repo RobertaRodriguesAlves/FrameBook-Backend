@@ -32,7 +32,7 @@ services:
     volumes:
       - mysql-db:/var/lib/mysql
 
-  mongodb:
+  mongo:
     image: mongo:5.0.3
 
 volumes:    
