@@ -1,7 +1,6 @@
-﻿using Framebook.Domain.Interfaces.Repositories;
+﻿using Framebook.Domain.Interfaces.DataSettings;
+using Framebook.Domain.Interfaces.Repositories;
 using Framebook.Domain.Models;
-using Framebook.Infra.Data;
-using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
@@ -11,22 +10,25 @@ namespace Framebook.Infra.Repository
 {
     public class RepositoryStack : IRepositoryStack
     {
-        private readonly StackContext _context;
-        public RepositoryStack(IOptions<MongoDbSettings> settings)
+        private readonly IMongoCollection<Stack> _stacksCollection;
+        public RepositoryStack(IMongoDbSettings mongoDbSettings)
         {
-            _context = new StackContext(settings);
+            var client = new MongoClient(mongoDbSettings.ConnectionString);
+            var database = client.GetDatabase(mongoDbSettings.DatabaseName);
+
+            _stacksCollection = database.GetCollection<Stack>("Stacks");
         }
 
         public async Task<Stack> GetById(string id)
         {
-            return await _context.Stacks.Find(stack => stack.Id.Equals(id)).SingleOrDefaultAsync();
+            return await _stacksCollection.Find(stack => stack.Id.Equals(id)).FirstOrDefaultAsync();
         }
 
         public async Task<bool> PostStack(Stack stack)
         {
             try
             {
-                await _context.Stacks.InsertOneAsync(stack);
+                await _stacksCollection.InsertOneAsync(stack);
                 return true;
             }
             catch (Exception)
@@ -39,7 +41,7 @@ namespace Framebook.Infra.Repository
         {
             try
             {
-                await _context.Stacks.DeleteManyAsync(stack => stack.Id.Equals(id));
+                await _stacksCollection.DeleteOneAsync(stack => stack.Id.Equals(id));
                 return true;
             }
             catch (ArgumentException)
@@ -52,7 +54,7 @@ namespace Framebook.Infra.Repository
         {
             try
             {
-                return await _context.Stacks.Find(_ => true).ToListAsync();
+                return await _stacksCollection.Find(stacks => true).ToListAsync();
             }
             catch (Exception)
             {
@@ -64,7 +66,7 @@ namespace Framebook.Infra.Repository
         {
             try
             {
-                var response = await _context.Stacks.ReplaceOneAsync(find => find.Id == stack.Id, stack);
+                var response = await _stacksCollection.ReplaceOneAsync(find => find.Id == stack.Id, stack);
                 if (response.MatchedCount == 0)
                     return false;
 
