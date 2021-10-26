@@ -17,12 +17,46 @@ namespace FrameBook.AuthAPI.Controllers
     {
         private readonly IBusinessServiceGestaoProfissional _businessServiceGestaoProfissional;
         private readonly IBusinessServiceGestaoAuth _businessServiceGestaoAuth;
-        IMapper _mapper;
 
         IConfiguration _configuration;
-#nullable enable
         IPAddress? _remoteIpAddress;
-#nullable disable
+
+        public AuthController(IBusinessServiceGestaoProfissional businessServiceGestaoProfissional, IBusinessServiceGestaoAuth businessServiceGestaoAuth, IMapper mapper, IConfiguration configuration)
+        {
+            _businessServiceGestaoProfissional = businessServiceGestaoProfissional;
+            _businessServiceGestaoAuth = businessServiceGestaoAuth;
+            _configuration = configuration;
+        }
+
+        [HttpPost]
+        public ActionResult<dynamic> Authenticate([FromBody] AutenticacaoDTO autenticacao)
+        {
+            try
+            {
+                var professional = _businessServiceGestaoProfissional.GetByEmail(autenticacao.Email, autenticacao.Senha);
+
+                if (professional == null)
+                    return NotFound(new { message = "Usuário não existe." });
+                else
+                {
+                    ServiceToken serviceToken = new ServiceToken();
+
+                    var token = serviceToken.GenerateToken(professional, _configuration.GetSection("JwtSettings")["SecretKey"]);
+                    var refreshToken = serviceToken.GenerateRefreshtoken(professional.Email, professional.Nome, GetRemoteIp());
+
+                    _businessServiceGestaoAuth.Add(refreshToken);
+
+                    return new
+                    {
+                        user = new { name = professional.Nome, email = professional.Email, cidade = professional.Cidade, estado = professional.Uf, telefone = professional.Telefone, token = token, refreshToken = refreshToken.Token }
+                    };
+                }
+            }
+            catch (Exception ex)
+            {
+                return NotFound(new { message = "Erro ao Autenticar o usuário: " + ex.Message });
+            }
+        }
 
         private string GetRemoteIp()
         {
@@ -36,47 +70,6 @@ namespace FrameBook.AuthAPI.Controllers
             }
 
             return _remoteIpAddress.ToString();
-        }
-
-        public AuthController(IBusinessServiceGestaoProfissional businessServiceGestaoProfissional, IBusinessServiceGestaoAuth businessServiceGestaoAuth, IMapper mapper, IConfiguration configuration)
-        {
-            _businessServiceGestaoProfissional = businessServiceGestaoProfissional;
-            _businessServiceGestaoAuth = businessServiceGestaoAuth;
-            _mapper = mapper;
-            _configuration = configuration;
-        }
-
-        [HttpPost]
-        public ActionResult<dynamic> Auth([FromBody] ProfissionalDTO profissionalDTO)
-        {
-            try
-            {
-                if (profissionalDTO == null)
-                    return NotFound(new { message = "Usuário não existe." });
-
-                var professional = _businessServiceGestaoProfissional.GetByEmail(profissionalDTO.Email, profissionalDTO.Senha);
-
-                if (professional == null)
-                    return NotFound(new { message = "Usuário não existe." });
-                else
-                {
-                    ServiceToken serviceToken = new ServiceToken();
-
-                    var token = serviceToken.GenerateToken(profissionalDTO, _configuration.GetSection("JwtSettings")["SecretKey"]);
-                    var refreshToken = serviceToken.GenerateRefreshtoken(profissionalDTO.Email, profissionalDTO.Nome, GetRemoteIp());
-
-                    _businessServiceGestaoAuth.Add(refreshToken);
-
-                    return new
-                    {
-                        user = new { name = profissionalDTO.Nome, email = profissionalDTO.Email, cidade = profissionalDTO.Cidade, estado = profissionalDTO.Uf, telefone = profissionalDTO.Telefone, token = token, refreshToken = refreshToken.Token }
-                    };
-                }
-            }
-            catch (Exception ex)
-            {
-                return NotFound(new { message = "Erro ao Autenticar o usuário: " + ex.Message });
-            }
         }
     }
 }

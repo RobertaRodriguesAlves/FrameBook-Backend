@@ -16,23 +16,7 @@ namespace Framebook.Infra.Repository
 
         public Profissional GetByEmail(string email, string senha)
         {
-            var profissional = _context.Profissionais.Where(p => p.Email == email.ToLower()).FirstOrDefault();
-            if (profissional != null)
-            {
-                if (senha != null)
-                {
-                    if (BCrypt.Net.BCrypt.Verify(senha, profissional.Senha))
-                    {
-                        return profissional;
-                    }
-                }
-
-                return profissional;
-
-            }
-
-            return null;
-
+            return _context.Profissionais.Where(p => p.Email == email.ToLower() && p.Senha == senha).FirstOrDefault();
         }
     }
 }

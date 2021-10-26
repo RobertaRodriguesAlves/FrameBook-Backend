@@ -37,7 +37,7 @@ namespace Framebook.Authentication.Services
             }
         }
 
-        public string GenerateToken(ProfissionalDTO obj, string secretKey = "")
+        public string GenerateToken(ProfissionalDTO profissional, string secretKey = "")
         {
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.UTF8.GetBytes(secretKey);
@@ -46,9 +46,9 @@ namespace Framebook.Authentication.Services
             {
                 Subject = new ClaimsIdentity(new[]
                 {
-                    new Claim(ClaimTypes.Role, obj.Nome),
-                    new Claim(ClaimTypes.Email, obj.Email),
-                    new Claim(ClaimTypes.Country, obj.Cidade),
+                    new Claim(ClaimTypes.Role, profissional.Nome),
+                    new Claim(ClaimTypes.Email, profissional.Email),
+                    new Claim(ClaimTypes.Country, profissional.Cidade),
                     new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
                 }),
 
