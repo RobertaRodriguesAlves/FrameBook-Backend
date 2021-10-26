@@ -32,8 +32,6 @@ namespace FrameBook.ProfissionalAPI
             var mysqlConn = $"server={host};uid=root;pwd={pass};port={port};database=dbframebook";
             services.AddDbContext<DatabaseContext>(options => options.UseMySql(mysqlConn, ServerVersion.AutoDetect(mysqlConn)));
 
-
-            Console.WriteLine("ok");
             services.AddControllers();
 
             services.AddHealthChecks().AddMySql(mysqlConn);
