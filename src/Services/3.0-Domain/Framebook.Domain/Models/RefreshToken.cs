@@ -9,6 +9,7 @@ namespace Framebook.Domain.Models
         public string Nome { get; set; }
         public string Email { get; set; }
         public DateTime Expires { get; set; }
+   
         [NotMapped]
         public bool IsExpired => DateTime.UtcNow >= Expires;
         public DateTime Created { get; set; }

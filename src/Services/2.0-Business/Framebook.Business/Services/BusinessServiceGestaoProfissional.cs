@@ -32,10 +32,8 @@ namespace Framebook.Business.Services
 
         public ProfissionalDTO GetByEmail(string email, string senha)
         {
-            var objProfissional = _serviceProfissional.GetByEmail(email, senha);
-            if (objProfissional == null)
-                return null;
-            return _mapper.Map<ProfissionalDTO>(objProfissional);
+            var profissional = _serviceProfissional.GetByEmail(email, senha);
+            return _mapper.Map<ProfissionalDTO>(profissional);
         }
 
         public void Remove(ProfissionalDTO obj)
