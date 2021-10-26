@@ -13,9 +13,12 @@ services:
     restart: on-failure
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - ConnectionStrings__DefaultConnection=server=mysqldb;port=3306;database=dbframebook;uid=root;password=framework
+      - DBHOST=mysqldb
+
     ports:
       - 8002:80
+    depends_on:
+       - mysqldb
 
   framebook.stackapi:
     restart: on-failure
@@ -36,7 +39,7 @@ services:
       - 8004:80
 
   mysqldb:
-    container_name:  mysqldb
+    container_name:  mysqldb    
     ports:      
       - 3306:3306
     environment:
