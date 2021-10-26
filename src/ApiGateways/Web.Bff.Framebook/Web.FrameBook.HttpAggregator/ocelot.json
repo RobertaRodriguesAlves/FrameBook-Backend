@@ -2,11 +2,11 @@
   "Routes": [
     {
       "DownstreamPathTemplate": "/api/{everything}",
-      "DownstreamScheme": "https",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": 44324
+          "Port": 17156
         }
       ],
       "UpstreamPathTemplate": "/api/auth/{everything}",
@@ -15,11 +15,11 @@
     },
     {
       "DownstreamPathTemplate": "/api/{everything}",
-      "DownstreamScheme": "https",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": 44336
+          "Port": 24739
         }
       ],
       "UpstreamPathTemplate": "/api/profissional/{everything}",
@@ -28,11 +28,11 @@
     },
     {
       "DownstreamPathTemplate": "/api/{everything}",
-      "DownstreamScheme": "https",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": 44348
+          "Port": 26859
         }
       ],
       "UpstreamPathTemplate": "/api/stack/{everything}",
@@ -47,7 +47,7 @@
         {
           "Name": "Auth API",
           "Version": "v1",
-          "Url": "https://localhost:44324/swagger/v1/swagger.json"
+          "Url": "http://localhost:17156/swagger/v1/swagger.json"
         }
       ]
     },
@@ -58,7 +58,7 @@
         {
           "Name": "Profissional API",
           "Version": "v1",
-          "Url": "https://localhost:44336/swagger/v1/swagger.json"
+          "Url": "http://localhost:24739/swagger/v1/swagger.json"
         }
       ]
     },
@@ -68,13 +68,13 @@
         {
           "Name": "Stack API",
           "Version": "v1",
-          "Url": "https://localhost:44348/swagger/v1/swagger.json"
+          "Url": "http://localhost:26859/swagger/v1/swagger.json"
         }
       ]
     }
   ],
 
   "GlobalConfiguration": {
-    "BaseUrl": "https://localhost"
+    "BaseUrl": "http://localhost"
   }
 }
