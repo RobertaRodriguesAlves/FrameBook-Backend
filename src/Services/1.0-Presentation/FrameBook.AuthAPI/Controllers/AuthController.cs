@@ -21,7 +21,8 @@ namespace FrameBook.AuthAPI.Controllers
         IConfiguration _configuration;
         IPAddress? _remoteIpAddress;
 
-        public AuthController(IBusinessServiceGestaoProfissional businessServiceGestaoProfissional, IBusinessServiceGestaoAuth businessServiceGestaoAuth, IMapper mapper, IConfiguration configuration)
+        public AuthController(IBusinessServiceGestaoProfissional businessServiceGestaoProfissional,
+                              IBusinessServiceGestaoAuth businessServiceGestaoAuth, IConfiguration configuration)
         {
             _businessServiceGestaoProfissional = businessServiceGestaoProfissional;
             _businessServiceGestaoAuth = businessServiceGestaoAuth;
@@ -36,7 +37,7 @@ namespace FrameBook.AuthAPI.Controllers
                 var professional = _businessServiceGestaoProfissional.GetByEmail(autenticacao.Email, autenticacao.Senha);
 
                 if (professional == null)
-                    return NotFound(new { message = "Usuário não existe." });
+                    return NotFound(new { message = "Usuário não cadastrado." });
                 else
                 {
                     ServiceToken serviceToken = new ServiceToken();
@@ -52,23 +53,15 @@ namespace FrameBook.AuthAPI.Controllers
                     };
                 }
             }
-            catch (Exception ex)
+            catch (ArgumentException ex)
             {
-                return NotFound(new { message = "Erro ao Autenticar o usuário: " + ex.Message });
+                return StatusCode((int)HttpStatusCode.InternalServerError, ex.Message);
             }
         }
 
         private string GetRemoteIp()
         {
-            _remoteIpAddress = Request.HttpContext.Connection.RemoteIpAddress;
-            if (_remoteIpAddress != null)
-            {
-                if (_remoteIpAddress.AddressFamily == AddressFamily.InterNetworkV6)
-                {
-                    _remoteIpAddress = Dns.GetHostEntry(_remoteIpAddress).AddressList.First(x => x.AddressFamily == AddressFamily.InterNetwork);
-                }
-            }
-
+            _remoteIpAddress = Dns.GetHostEntry(Dns.GetHostName()).AddressList.FirstOrDefault(x => x.AddressFamily == AddressFamily.InterNetwork);
             return _remoteIpAddress.ToString();
         }
     }

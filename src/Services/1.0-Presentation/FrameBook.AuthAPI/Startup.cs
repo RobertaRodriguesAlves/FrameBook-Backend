@@ -26,11 +26,12 @@ namespace FrameBook.AuthAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddSingleton<IConfiguration>(Configuration);
-
-            services.AddDbContext<DatabaseContext>(options => options.UseMySql(Configuration.GetConnectionString("DefaultConnection"),
-            new MySqlServerVersion(new Version(8, 0, 11))));
-
+            var host = Configuration["DBHOST"] ?? "localhost";
+            var port = Configuration["DBPORT"] ?? "3306";
+            var pass = Configuration["DBPASS"] ?? "framework";
+            var mysqlConn = $"server={host};uid=root;pwd={pass};port={port};database=dbframebook";
+            services.AddDbContext<DatabaseContext>(options => options.UseMySql(mysqlConn, ServerVersion.AutoDetect(mysqlConn)));
+            Console.WriteLine("okay");
             services.AddControllers();
 
             services.AddHealthChecks().AddMySql(Configuration.GetConnectionString("DefaultConnection"));
