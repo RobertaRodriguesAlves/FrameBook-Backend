@@ -13,7 +13,7 @@ services:
       - 8001:80
 
   framebook.profissionalapi:
-    container_name: framebook-profissionalapi
+    container_name: framebook.profissionalapi
     hostname: framebook.profissionalapi
     restart: on-failure
     environment:
