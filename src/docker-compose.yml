@@ -39,9 +39,8 @@ volumes:
   mysql-db:
 
 networks:
-  framebook-net:
+  default:
     name: framebook-net
-    driver: bridge
 
    
     
