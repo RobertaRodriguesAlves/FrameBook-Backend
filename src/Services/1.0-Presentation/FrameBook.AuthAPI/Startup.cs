@@ -31,7 +31,7 @@ namespace FrameBook.AuthAPI
             var pass = Configuration["DBPASS"] ?? "framework";
             var mysqlConn = $"server={host};uid=root;pwd={pass};port={port};database=dbframebook";
             services.AddDbContext<DatabaseContext>(options => options.UseMySql(mysqlConn, ServerVersion.AutoDetect(mysqlConn)));
-            Console.WriteLine("okay");
+
             services.AddControllers();
 
             services.AddHealthChecks().AddMySql(Configuration.GetConnectionString("DefaultConnection"));
