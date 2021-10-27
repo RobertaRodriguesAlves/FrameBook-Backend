@@ -5,8 +5,8 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 17156
+          "Host": "framebook.authapi",
+          "Port": 80
         }
       ],
       "UpstreamPathTemplate": "/api/auth/{everything}",
@@ -18,8 +18,8 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 24739
+          "Host": "framebook.profissionalapi",
+          "Port": 80
         }
       ],
       "UpstreamPathTemplate": "/api/profissional/{everything}",
@@ -31,8 +31,8 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 26859
+          "Host": "framebook.stackapi",
+          "Port": 80
         }
       ],
       "UpstreamPathTemplate": "/api/stack/{everything}",
@@ -47,7 +47,7 @@
         {
           "Name": "Auth API",
           "Version": "v1",
-          "Url": "http://localhost:17156/swagger/v1/swagger.json"
+          "Url": " http://framebook.authapi:80/swagger/v1/swagger.json"
         }
       ]
     },
@@ -58,7 +58,7 @@
         {
           "Name": "Profissional API",
           "Version": "v1",
-          "Url": "http://localhost:24739/swagger/v1/swagger.json"
+          "Url": "http://framebook.profissionalapi:80/swagger/v1/swagger.json"
         }
       ]
     },
@@ -68,7 +68,7 @@
         {
           "Name": "Stack API",
           "Version": "v1",
-          "Url": "http://localhost:26859/swagger/v1/swagger.json"
+          "Url": "http://framebook.stackapi:80/swagger/v1/swagger.json"
         }
       ]
     }
