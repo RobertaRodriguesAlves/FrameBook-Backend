@@ -21,7 +21,7 @@ services:
     ports:
       - 8002:80
     depends_on:
-      - framebook.authapi
+      - mysqldb
 
   framebook.stackapi:
     container_name: framebook.stackapi
@@ -33,7 +33,6 @@ services:
       - 8003:80
     depends_on:
       - mongo
-      - framebook.profissionalapi
 
   web.framebook.httpaggregator:
     container_name: web.framebook.httpaggregator
@@ -60,6 +59,3 @@ services:
     container_name: mongo
     ports:
       - 27017:27017
-      
-      
-  

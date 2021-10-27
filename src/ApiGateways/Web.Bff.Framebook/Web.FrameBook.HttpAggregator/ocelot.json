@@ -47,7 +47,7 @@
         {
           "Name": "Auth API",
           "Version": "v1",
-          "Url": " http://framebook.authapi:80/swagger/v1/swagger.json"
+          "Url": "http://framebook.authapi:80/swagger/v1/swagger.json"
         }
       ]
     },
