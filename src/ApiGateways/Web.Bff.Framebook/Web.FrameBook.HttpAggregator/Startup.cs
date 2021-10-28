@@ -28,7 +28,6 @@ namespace Web.FrameBook.HttpAggregator
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
 
-
             services.AddSwaggerForOcelot(configuration);
         }
 
