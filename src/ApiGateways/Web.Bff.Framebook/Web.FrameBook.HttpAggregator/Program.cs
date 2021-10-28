@@ -9,7 +9,7 @@ namespace Web.FrameBook.HttpAggregator
         public static void Main(string[] args)
         {
             CreateHostBuilder(args).Build().Run();
-        }
+        }       
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
@@ -20,7 +20,7 @@ namespace Web.FrameBook.HttpAggregator
                         .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
                         .AddJsonFile($"appsettings.{hostingContext.HostingEnvironment.EnvironmentName}.json", optional: true, reloadOnChange: true)
                         .AddJsonFile($"appsettings.local.json", optional: true, reloadOnChange: true)
-                        .AddJsonFile($"ocelot.json")
+                        .AddJsonFile($"ocelot.{hostingContext.HostingEnvironment.EnvironmentName}.json")
                         .AddEnvironmentVariables();
                 })
                 .ConfigureWebHostDefaults(webBuilder =>

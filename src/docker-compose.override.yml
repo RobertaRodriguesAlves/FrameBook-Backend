@@ -5,7 +5,7 @@ services:
     container_name: framebook.authapi
     restart: on-failure
     environment:
-      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_ENVIRONMENT=Homolog
       - DBHOST=mysqldb
     ports:
       - 8001:80
@@ -16,7 +16,7 @@ services:
     container_name: framebook.profissionalapi
     restart: on-failure
     environment:
-      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_ENVIRONMENT=Homolog
       - DBHOST=mysqldb
     ports:
       - 8002:80
@@ -27,7 +27,7 @@ services:
     container_name: framebook.stackapi
     restart: on-failure
     environment:
-      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_ENVIRONMENT=Homolog
       - MongoDbSettings__ConnectionString=mongodb://mongo:27017
     ports:
       - 8003:80
@@ -38,7 +38,7 @@ services:
     container_name: web.framebook.httpaggregator
     restart: on-failure
     environment:
-      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_ENVIRONMENT=Homolog
     ports:
       - 8004:80
     depends_on:
