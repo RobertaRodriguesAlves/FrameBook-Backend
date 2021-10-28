@@ -23,9 +23,9 @@ namespace Framebook.Infra.Repository
                 _context.Set<TEntity>().Add(obj);
                 _context.SaveChanges();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                throw ex;
+                throw;
             }
         }
 
@@ -34,22 +34,16 @@ namespace Framebook.Infra.Repository
             return _context.Set<TEntity>().Find(id);
         }
 
-        public virtual IEnumerable<TEntity> GetAll()
-        {
-            return _context.Set<TEntity>().ToList();
-        }
-
         public virtual void Update(TEntity obj)
         {
             try
             {
                 _context.Entry(obj).State = EntityState.Modified;
                 _context.SaveChanges();
-
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                throw ex;
+                throw;
             }
         }
 
@@ -60,9 +54,9 @@ namespace Framebook.Infra.Repository
                 _context.Set<TEntity>().Remove(obj);
                 _context.SaveChanges();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                throw ex;
+                throw;
             }
         }
 

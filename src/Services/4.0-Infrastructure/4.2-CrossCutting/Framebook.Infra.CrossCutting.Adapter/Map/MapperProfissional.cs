@@ -13,6 +13,7 @@ namespace Framebook.Infra.CrossCutting.Adapter.Map
         {
             Profissional profissional = new Profissional
             {
+                Id_Profissional = profissionalDTO.Id_Profissional,
                 Nome = profissionalDTO.Nome,
                 Email = profissionalDTO.Email,
                 Telefone = profissionalDTO.Telefone,
@@ -30,6 +31,7 @@ namespace Framebook.Infra.CrossCutting.Adapter.Map
             {
                 ProfissionalDTO profissionalDTO = new ProfissionalDTO
                 {
+                    Id_Profissional = item.Id_Profissional,
                     Nome = item.Nome,
                     Email = item.Email,
                     Telefone = item.Telefone,
@@ -49,6 +51,7 @@ namespace Framebook.Infra.CrossCutting.Adapter.Map
 
             ProfissionalDTO profissionalDTO = new ProfissionalDTO
             {
+                Id_Profissional = profissional.Id_Profissional,
                 Nome = profissional.Nome,
                 Email = profissional.Email,
                 Telefone = profissional.Telefone,

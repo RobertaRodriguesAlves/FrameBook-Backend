@@ -34,7 +34,7 @@ namespace FrameBook.AuthAPI.Controllers
         {
             try
             {
-                var professional = _businessServiceGestaoProfissional.GetByEmail(autenticacao.Email, autenticacao.Senha);
+                var professional = _businessServiceGestaoProfissional.GetByEmail(autenticacao.Email);
 
                 if (professional == null)
                     return NotFound(new { message = "Usuário não cadastrado." });

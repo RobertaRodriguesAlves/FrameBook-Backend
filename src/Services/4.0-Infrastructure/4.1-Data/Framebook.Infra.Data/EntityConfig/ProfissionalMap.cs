@@ -10,7 +10,7 @@ namespace Framebook.Infra.Data.EntityConfig
         {
             builder.ToTable("Profissional");
 
-            builder.HasKey(x => x.Email);
+            builder.HasKey(x => x.Id_Profissional);
 
             builder.Property(p => p.Nome).IsRequired();
             builder.Property(p => p.Email).IsRequired();

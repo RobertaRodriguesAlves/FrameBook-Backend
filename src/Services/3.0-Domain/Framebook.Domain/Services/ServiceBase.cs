@@ -1,7 +1,6 @@
 ﻿using Framebook.Domain.Interfaces.Repositories;
 using Framebook.Domain.Interfaces.Services;
 using System;
-using System.Collections.Generic;
 
 namespace Framebook.Domain.Services
 {
@@ -16,10 +15,6 @@ namespace Framebook.Domain.Services
         public virtual void Add(TEntity obj)
         {
             _repository.Add(obj);
-        }
-        public virtual IEnumerable<TEntity> GetAll()
-        {
-            return _repository.GetAll();
         }
         public virtual void Update(TEntity obj)
         {

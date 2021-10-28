@@ -16,16 +16,18 @@ namespace Framebook.Infra.Data
 
         public override int SaveChanges()
         {
-            foreach (var entry in ChangeTracker.Entries().Where(entry => entry.Entity.GetType().GetProperty("DataCadastro") != null))
+            foreach (var entry in ChangeTracker.Entries())
             {
                 if (entry.State == EntityState.Added)
                 {
                     entry.Property("DataCadastro").CurrentValue = DateTime.Now;
+                    entry.Property("Id_Profissional").CurrentValue = Guid.NewGuid();
                 }
 
                 if (entry.State == EntityState.Modified)
                 {
                     entry.Property("DataCadastro").IsModified = false;
+                    entry.Property("Id_Profissional").IsModified = false;
                 }
             }
 
@@ -34,6 +36,10 @@ namespace Framebook.Infra.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Profissional>(entity => {
+                entity.HasIndex(e => e.Email).IsUnique();
+            });
+
             modelBuilder.ApplyConfiguration(new ProfissionalMap());
             modelBuilder.ApplyConfiguration(new StackMap());
             modelBuilder.ApplyConfiguration(new RefreshTokenMap());

@@ -1,6 +1,7 @@
 ﻿using Framebook.Domain.Interfaces.Repositories;
 using Framebook.Domain.Models;
 using Framebook.Infra.Data;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Framebook.Infra.Repository
@@ -14,9 +15,14 @@ namespace Framebook.Infra.Repository
             _context = Context;
         }
 
-        public Profissional GetByEmail(string email, string senha)
+        public Profissional GetByEmail(string email)
         {
-            return _context.Profissionais.Where(p => p.Email == email.ToLower() && p.Senha == senha).FirstOrDefault();
+            return _context.Profissionais.Where(p => p.Email == email.ToLower()).FirstOrDefault();
+        }
+
+        public List<Profissional> GetAll()
+        {
+            return _context.Profissionais.ToList();
         }
     }
 }

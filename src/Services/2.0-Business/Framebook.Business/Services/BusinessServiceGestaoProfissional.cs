@@ -3,6 +3,7 @@ using Framebook.Business.DTO.DTO;
 using Framebook.Business.Interfaces;
 using Framebook.Domain.Interfaces.Services;
 using Framebook.Domain.Models;
+using System;
 using System.Collections.Generic;
 
 namespace Framebook.Business.Services
@@ -30,9 +31,10 @@ namespace Framebook.Business.Services
             return _mapper.Map<IEnumerable<ProfissionalDTO>>(objProfissionais);
         }
 
-        public ProfissionalDTO GetByEmail(string email, string senha)
+        public ProfissionalDTO GetByEmail(string email)
         {
-            var profissional = _serviceProfissional.GetByEmail(email, senha);
+            ProfissionalDTO profissional;
+            profissional = _serviceProfissional.GetByEmail(email);
             return _mapper.Map<ProfissionalDTO>(profissional);
         }
 

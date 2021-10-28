@@ -3,6 +3,7 @@ using Framebook.Business.DTO.DTO;
 using Framebook.Business.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using System;
 using System.Collections.Generic;
 
 namespace FrameBook.ProfissionalAPI.Controllers
@@ -32,9 +33,24 @@ namespace FrameBook.ProfissionalAPI.Controllers
         [HttpGet("{email}")]
         public ActionResult<string> Get(string email)
         {
-            var profissional = _businessServiceGestaoProfissional.GetByEmail(email, null);
-            var profissionalDTO = _mapper.Map<ProfissionalDTO>(profissional);
-            return Ok(profissionalDTO);
+            try
+            {
+                var profissional = _businessServiceGestaoProfissional.GetByEmail(email);
+                var profissionalDTO = _mapper.Map<ProfissionalDTO>(profissional);
+
+                if (profissionalDTO.Email != null)
+                {
+                    return Ok(profissionalDTO);
+                }
+                else
+                {
+                    return Ok("Profissional não encontrado!");
+                }
+            }
+            catch (Exception)
+            {
+                return Ok("Erro!");
+            }
         }
 
         [HttpPost]
@@ -43,8 +59,15 @@ namespace FrameBook.ProfissionalAPI.Controllers
             if (profissionalDTO == null)
                 return NotFound();
 
-            _businessServiceGestaoProfissional.Add(profissionalDTO);
-            return Ok("Profissional cadastrado com sucesso!");
+            try
+            {
+                _businessServiceGestaoProfissional.Add(profissionalDTO);
+                return Ok("Profissional cadastrado com sucesso!");
+            }
+            catch (Exception)
+            {
+                return Problem("Não foi possível cadastrar!");
+            }
         }
 
         [HttpPut]
@@ -53,8 +76,15 @@ namespace FrameBook.ProfissionalAPI.Controllers
             if (profissionalDTO == null)
                 return NotFound();
 
-            _businessServiceGestaoProfissional.Update(profissionalDTO);
-            return Ok("Profissional atualizado com sucesso!");
+            try
+            {
+                _businessServiceGestaoProfissional.Update(profissionalDTO);
+                return Ok("Profissional atualizado com sucesso!");
+            }
+            catch (Exception)
+            {
+                return Problem("Não foi possível atualizar!");
+            }
         }
 
         [HttpDelete]
@@ -63,8 +93,15 @@ namespace FrameBook.ProfissionalAPI.Controllers
             if (profissionalDTO == null)
                 return NotFound();
 
-            _businessServiceGestaoProfissional.Remove(profissionalDTO);
-            return Ok("Profissional removido com sucesso!");
+            try
+            {
+                _businessServiceGestaoProfissional.Remove(profissionalDTO);
+                return Ok("Profissional removido com sucesso!");
+            }
+            catch (Exception)
+            {
+                return Problem("Não foi possível remover!");
+            }
         }
     }
 }
