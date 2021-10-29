@@ -1,7 +1,6 @@
 {
   "Routes": [
     {
-      "ServiceName": "",
       "DownstreamPathTemplate": "/api/v1/auth",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
@@ -11,10 +10,10 @@
         }
       ],
       "UpstreamPathTemplate": "/framebook/auth",
-      "UpstreamHttpMethod": [ "Get", "Post", "Put", "Delete" ]
+      "UpstreamHttpMethod": [ "Get", "Post", "Put", "Delete" ],
+      "SwaggerKey": "auth"
     },
     {
-      "ServiceName": "",
       "DownstreamPathTemplate": "/api/v1/profissional",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
@@ -25,10 +24,9 @@
       ],
       "UpstreamPathTemplate": "/framebook/profissional",
       "UpstreamHttpMethod": [ "Get", "Post", "Put", "Delete" ],
-      "Key": "profissional"
+      "SwaggerKey": "profissional"
     },
     {
-      "ServiceName": "",
       "DownstreamPathTemplate": "/api/v1/stack",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
@@ -39,20 +37,42 @@
       ],
       "UpstreamPathTemplate": "/framebook/stack",
       "UpstreamHttpMethod": [ "Get", "Post", "Put", "Delete" ],
-      "Key": "stack"
+      "SwaggerKey": "stack"
     }
   ],
-  "Aggregates": [
+  "SwaggerEndPoints": [
     {
-      "RouteKeys": [
-        "profissional",
-        "stack"
-      ],
-      "UpstreamPathTemplate": "/framebook/aggregate-details",
-      "Aggregator": "ProfissionalStacksAggregator"
+      "Key": "auth",
+      "Config": [
+        {
+          "Name": "Auth API",
+          "Version": "v1",
+          "Url": "http://localhost:17156/swagger/v1/swagger.json"
+        }
+      ]
+    },
+    {
+      "Key": "profissional",
+      "Config": [
+        {
+          "Name": "Profissional API",
+          "Version": "v1",
+          "Url": "http://localhost:24739/swagger/v1/swagger.json"
+        }
+      ]
+    },
+    {
+      "Key": "stack",
+      "Config": [
+        {
+          "Name": "Stack API",
+          "Version": "v1",
+          "Url": "http://localhost:26859/swagger/v1/swagger.json"
+        }
+      ]
     }
   ],
   "GlobalConfiguration": {
-    "BaseUrl": "http://localhost:7000"
+    "BaseUrl": "http://localhost"
   }
 }
