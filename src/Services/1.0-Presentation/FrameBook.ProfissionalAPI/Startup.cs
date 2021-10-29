@@ -28,8 +28,8 @@ namespace FrameBook.ProfissionalAPI
         {
             var host = Configuration["DBHOST"] ?? "localhost";
             var port = Configuration["DBPORT"] ?? "3306";
-            var pass = Configuration["DBPASS"] ?? "framework";
-            var mysqlConn = $"server={host};uid=root;pwd={pass};port={port};database=dbframebook";
+            var pass = Configuration["DBPASS"] ?? "framebook";
+            var mysqlConn = $"server={host};uid=framebook;pwd={pass};port={port};database=framebook";
             services.AddDbContext<DatabaseContext>(options => options.UseMySql(mysqlConn, ServerVersion.AutoDetect(mysqlConn)));
 
             services.AddControllers();
