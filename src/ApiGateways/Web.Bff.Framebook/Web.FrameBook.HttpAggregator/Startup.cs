@@ -23,12 +23,10 @@ namespace Web.FrameBook.HttpAggregator
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddOcelot()
+            services.AddOcelot(configuration)
                 .AddTransientDefinedAggregator<ProfissionalStacksAggregator>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
-
-            services.AddSwaggerForOcelot(configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -40,11 +38,7 @@ namespace Web.FrameBook.HttpAggregator
                 app.UseDeveloperExceptionPage();
             }
             app.UseStaticFiles();
-            app.UseSwaggerForOcelotUI(opt =>
-            {
-                opt.DownstreamSwaggerEndPointBasePath = "/gateway/swagger/docs";
-                opt.PathToSwaggerGenerator = "/swagger/docs";
-            });
+            
             app.UseHttpsRedirection();
 
             app.UseRouting();
