@@ -13,29 +13,6 @@ namespace Framebook.Infra.Data
         public DbSet<Stack> Stacks { get; set; }
         public DbSet<RefreshToken> RefreshToken { get; set; }
 
-        public override int SaveChanges()
-        {
-            foreach (var entry in ChangeTracker.Entries())
-            {
-                if (entry.Entity.ToString() == "Framebook.Domain.Models.Professional")
-                {
-                    if (entry.State == EntityState.Added)
-                    {
-                        entry.Property("DataCadastro").CurrentValue = DateTime.Now;
-                        entry.Property("ProfessionalId").CurrentValue = Guid.NewGuid();
-                    }
-
-                    if (entry.State == EntityState.Modified)
-                    {
-                        entry.Property("DataCadastro").IsModified = false;
-                        entry.Property("ProfessionalId").IsModified = false;
-                    }
-                }           
-            }
-
-            return base.SaveChanges();
-        }
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Professional>(entity => {

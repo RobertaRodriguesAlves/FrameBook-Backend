@@ -8,8 +8,8 @@ using System.Collections.Generic;
 
 namespace FrameBook.ProfessionalAPI.Controllers
 {
-    [Route("api/v1/[controller]")]
     [ApiController]
+    [Route("api/v1/[controller]")]   
     public class ProfessionalController : ControllerBase
     {
         private readonly IBusinessServiceGestaoProfessional _businessServiceGestaoProfessional;
@@ -54,14 +54,18 @@ namespace FrameBook.ProfessionalAPI.Controllers
         }
 
         [HttpPost]
-        public ActionResult Post([FromBody] ProfessionalDTO ProfessionalDTO)
+        public ActionResult Post(
+            [FromBody] ProfessionalDTO professionalDTO)
         {
-            if (ProfessionalDTO == null)
+            if (professionalDTO == null)
                 return NotFound();
+
+            professionalDTO.ProfessionalId = Guid.NewGuid();
+            professionalDTO.DataCadastro = DateTime.Now;
 
             try
             {
-                _businessServiceGestaoProfessional.Add(ProfessionalDTO);
+                _businessServiceGestaoProfessional.Add(professionalDTO);
                 return Ok("Professional cadastrado com sucesso!");
             }
             catch (Exception)
