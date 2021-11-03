@@ -12,8 +12,8 @@ services:
     depends_on:
       - mysqldb
 
-  framebook.profissionalapi:
-    container_name: framebook.profissionalapi
+  framebook.Professionalapi:
+    container_name: framebook.Professionalapi
     restart: on-failure
     environment:
       - ASPNETCORE_ENVIRONMENT=Homolog
@@ -43,7 +43,7 @@ services:
       - 8004:80
     depends_on:
       - framebook.authapi
-      - framebook.profissionalapi
+      - framebook.Professionalapi
       - framebook.stackapi
 
   mysqldb:

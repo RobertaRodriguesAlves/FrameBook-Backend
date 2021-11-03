@@ -6,21 +6,21 @@ using System.Linq;
 
 namespace Framebook.Infra.Repository
 {
-    public class RepositoryProfissional : RepositoryBase<Profissional>, IRepositoryProfissional
+    public class RepositoryProfessional : RepositoryBase<Professional>, IRepositoryProfessional
     {
         private readonly DatabaseContext _context;
-        public RepositoryProfissional(DatabaseContext Context)
+        public RepositoryProfessional(DatabaseContext Context)
             : base(Context)
         {
             _context = Context;
         }
 
-        public Profissional GetByEmail(string email)
+        public Professional GetByEmail(string email)
         {
             return _context.Profissionais.Where(p => p.Email == email.ToLower()).FirstOrDefault();
         }
 
-        public List<Profissional> GetAll()
+        public List<Professional> GetAll()
         {
             return _context.Profissionais.ToList();
         }

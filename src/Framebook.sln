@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.31727.386
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31825.309
 MinimumVisualStudioVersion = 15.0.26124.0
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ApiGateways", "ApiGateways", "{72112192-4BB3-4D79-8472-0D8073A6931D}"
 EndProject
@@ -15,7 +15,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1.0-Presentation", "1.0-Pre
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FrameBook.StackAPI", "Services\1.0-Presentation\FrameBook.StackAPI\FrameBook.StackAPI.csproj", "{638AE2F9-FC52-4C13-813D-B883AAF83648}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FrameBook.ProfissionalAPI", "Services\1.0-Presentation\FrameBook.ProfissionalAPI\FrameBook.ProfissionalAPI.csproj", "{AF2E9D31-420C-4522-88E4-8BDF2D66CA8A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FrameBook.ProfessionalAPI", "Services\1.0-Presentation\FrameBook.ProfissionalAPI\FrameBook.ProfessionalAPI.csproj", "{AF2E9D31-420C-4522-88E4-8BDF2D66CA8A}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FrameBook.AuthAPI", "Services\1.0-Presentation\FrameBook.AuthAPI\FrameBook.AuthAPI.csproj", "{D7631F6B-2689-4654-AE03-B7639D27651F}"
 EndProject

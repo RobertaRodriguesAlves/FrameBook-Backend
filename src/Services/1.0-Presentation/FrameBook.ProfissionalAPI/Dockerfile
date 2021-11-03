@@ -7,7 +7,7 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
 WORKDIR /src
-COPY ["Services/1.0-Presentation/FrameBook.ProfissionalAPI/FrameBook.ProfissionalAPI.csproj", "Services/1.0-Presentation/FrameBook.ProfissionalAPI/"]
+COPY ["Services/1.0-Presentation/FrameBook.ProfessionalAPI/FrameBook.ProfessionalAPI.csproj", "Services/1.0-Presentation/FrameBook.ProfessionalAPI/"]
 COPY ["Services/4.0-Infrastructure/4.1-Data/Framebook.Infra.Data/Framebook.Infra.Data.csproj", "Services/4.0-Infrastructure/4.1-Data/Framebook.Infra.Data/"]
 COPY ["Services/3.0-Domain/Framebook.Domain/Framebook.Domain.csproj", "Services/3.0-Domain/Framebook.Domain/"]
 COPY ["Services/2.0-Business/Framebook.Business.DTO/Framebook.Business.DTO.csproj", "Services/2.0-Business/Framebook.Business.DTO/"]
@@ -15,15 +15,15 @@ COPY ["Services/4.0-Infrastructure/4.2-CrossCutting/Framebook.Infra.CrossCutting
 COPY ["Services/4.0-Infrastructure/4.1-Data/Framebook.Infra.Repository/Framebook.Infra.Repository.csproj", "Services/4.0-Infrastructure/4.1-Data/Framebook.Infra.Repository/"]
 COPY ["Services/2.0-Business/Framebook.Business/Framebook.Business.csproj", "Services/2.0-Business/Framebook.Business/"]
 COPY ["Services/4.0-Infrastructure/4.2-CrossCutting/Framebook.Infra.CrossCutting.Adapter/Framebook.Infra.CrossCutting.Adapter.csproj", "Services/4.0-Infrastructure/4.2-CrossCutting/Framebook.Infra.CrossCutting.Adapter/"]
-RUN dotnet restore "Services/1.0-Presentation/FrameBook.ProfissionalAPI/FrameBook.ProfissionalAPI.csproj"
+RUN dotnet restore "Services/1.0-Presentation/FrameBook.ProfessionalAPI/FrameBook.ProfessionalAPI.csproj"
 COPY . .
-WORKDIR "/src/Services/1.0-Presentation/FrameBook.ProfissionalAPI"
-RUN dotnet build "FrameBook.ProfissionalAPI.csproj" -c Release -o /app/build
+WORKDIR "/src/Services/1.0-Presentation/FrameBook.ProfessionalAPI"
+RUN dotnet build "FrameBook.ProfessionalAPI.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "FrameBook.ProfissionalAPI.csproj" -c Release -o /app/publish
+RUN dotnet publish "FrameBook.ProfessionalAPI.csproj" -c Release -o /app/publish
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "FrameBook.ProfissionalAPI.dll"]
+ENTRYPOINT ["dotnet", "FrameBook.ProfessionalAPI.dll"]

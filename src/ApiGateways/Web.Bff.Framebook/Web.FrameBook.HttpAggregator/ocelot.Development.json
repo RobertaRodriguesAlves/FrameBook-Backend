@@ -16,7 +16,7 @@
     },
     {
       "ServiceName": "",
-      "DownstreamPathTemplate": "/api/v1/profissional",
+      "DownstreamPathTemplate": "/api/v1/professional",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
@@ -24,10 +24,10 @@
           "Port": 24739
         }
       ],
-      "UpstreamPathTemplate": "/framebook/profissional",
+      "UpstreamPathTemplate": "/framebook/professional",
       "UpstreamHttpMethod": [ "Get", "Post", "Put", "Delete" ],
-      "SwaggerKey": "profissional",
-      "Key": "profissional"
+      "SwaggerKey": "professional",
+      "Key": "professional"
     },
     {
       "ServiceName": "",
@@ -58,10 +58,10 @@
       ]
     },
     {
-      "Key": "profissional",
+      "Key": "professional",
       "Config": [
         {
-          "Name": "Profissional API",
+          "Name": "Professional API",
           "Version": "v1",
           "Url": "http://localhost:24739/swagger/v1/swagger.json"
         }
@@ -81,11 +81,11 @@
   "Aggregates": [
     {
       "RouteKeys": [
-        "profissional",
+        "professional",
         "stack"
       ],
       "UpstreamPathTemplate": "/framebook/aggregate-details",
-      "Aggregator": "ProfissionalStacksAggregator"
+      "Aggregator": "ProfessionalStacksAggregator"
     }
   ],
   "GlobalConfiguration": {}

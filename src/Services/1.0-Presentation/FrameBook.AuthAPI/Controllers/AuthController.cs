@@ -15,16 +15,16 @@ namespace FrameBook.AuthAPI.Controllers
     [ApiController]
     public class AuthController : ControllerBase
     {
-        private readonly IBusinessServiceGestaoProfissional _businessServiceGestaoProfissional;
+        private readonly IBusinessServiceGestaoProfessional _businessServiceGestaoProfessional;
         private readonly IBusinessServiceGestaoAuth _businessServiceGestaoAuth;
 
         IConfiguration _configuration;
         IPAddress? _remoteIpAddress;
 
-        public AuthController(IBusinessServiceGestaoProfissional businessServiceGestaoProfissional,
+        public AuthController(IBusinessServiceGestaoProfessional businessServiceGestaoProfessional,
                               IBusinessServiceGestaoAuth businessServiceGestaoAuth, IConfiguration configuration)
         {
-            _businessServiceGestaoProfissional = businessServiceGestaoProfissional;
+            _businessServiceGestaoProfessional = businessServiceGestaoProfessional;
             _businessServiceGestaoAuth = businessServiceGestaoAuth;
             _configuration = configuration;
         }
@@ -34,7 +34,7 @@ namespace FrameBook.AuthAPI.Controllers
         {
             try
             {
-                var professional = _businessServiceGestaoProfissional.GetByEmail(autenticacao.Email);
+                var professional = _businessServiceGestaoProfessional.GetByEmail(autenticacao.Email);
 
                 if (professional == null)
                     return NotFound(new { message = "Usuário não cadastrado." });

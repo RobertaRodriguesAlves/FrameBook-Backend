@@ -14,17 +14,17 @@
       "SwaggerKey": "auth"
     },
     {
-      "DownstreamPathTemplate": "/api/v1/profissional",
+      "DownstreamPathTemplate": "/api/v1/professional",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "framebook.profissionalapi",
+          "Host": "framebook.professionalapi",
           "Port": 80
         }
       ],
-      "UpstreamPathTemplate": "/framebook/profissional",
+      "UpstreamPathTemplate": "/framebook/professional",
       "UpstreamHttpMethod": [ "Get", "Post", "Put", "Delete" ],
-      "SwaggerKey": "profissional"
+      "SwaggerKey": "professional"
     },
     {
       "DownstreamPathTemplate": "/api/v1/stack",
@@ -53,12 +53,12 @@
     },
 
     {
-      "Key": "profissional",
+      "Key": "professional",
       "Config": [
         {
-          "Name": "Profissional API",
+          "Name": "Professional API",
           "Version": "v1",
-          "Url": "http://framebook.profissionalapi:80/swagger/v1/swagger.json"
+          "Url": "http://framebook.professionalapi:80/swagger/v1/swagger.json"
         }
       ]
     },

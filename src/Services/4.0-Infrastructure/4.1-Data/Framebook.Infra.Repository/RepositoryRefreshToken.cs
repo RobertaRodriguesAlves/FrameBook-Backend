@@ -15,10 +15,10 @@ namespace Framebook.Infra.Repository
             _context = Context;
         }
 
-        public Profissional GetByEmail(string email)
+        public Professional GetByEmail(string email)
         {
-            var profissional = _context.Profissionais.Where(p => p.Email == email.ToLower()).FirstOrDefault();
-            return profissional;
+            var Professional = _context.Profissionais.Where(p => p.Email == email.ToLower()).FirstOrDefault();
+            return Professional;
         }
     }
 }

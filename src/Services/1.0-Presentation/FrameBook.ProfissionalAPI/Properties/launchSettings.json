@@ -16,7 +16,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "FrwkBootCamp.ProfissionalAPI": {
+    "FrwkBootCamp.ProfessionalAPI": {
       "commandName": "Project",
       "launchBrowser": true,
       "launchUrl": "swagger",
@@ -28,7 +28,7 @@
     "Docker": {
       "commandName": "Docker",
       "launchBrowser": true,
-      "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}/Profissional",
+      "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}/Professional",
       "publishAllPorts": true
     }
   }

@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Framebook.Infra.Data.Migrations
 {
-    public partial class InitialDB : Migration
+    public partial class InitialDb : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -12,10 +12,10 @@ namespace Framebook.Infra.Data.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "Profissional",
+                name: "Professional",
                 columns: table => new
                 {
-                    Id_Profissional = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    ProfessionalId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
                     Nome = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Email = table.Column<string>(type: "varchar(255)", nullable: false)
@@ -32,7 +32,7 @@ namespace Framebook.Infra.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Profissional", x => x.Id_Profissional);
+                    table.PrimaryKey("PK_Professional", x => x.ProfessionalId);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
@@ -80,8 +80,8 @@ namespace Framebook.Infra.Data.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Profissional_Email",
-                table: "Profissional",
+                name: "IX_Professional_Email",
+                table: "Professional",
                 column: "Email",
                 unique: true);
         }
@@ -89,7 +89,7 @@ namespace Framebook.Infra.Data.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Profissional");
+                name: "Professional");
 
             migrationBuilder.DropTable(
                 name: "RefreshToken");

@@ -23,14 +23,11 @@ namespace FrameBook.StackAPI
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddHealthChecks();
-
             services.Configure<MongoDbSettings>(Configuration.GetSection(nameof(MongoDbSettings)));
             services.AddSingleton<IMongoDbSettings>(serviceProvider => serviceProvider.GetRequiredService<IOptions<MongoDbSettings>>().Value);
-
             services.AddControllers();
 
             services.AddSwaggerGen(c => {
@@ -48,7 +45,6 @@ namespace FrameBook.StackAPI
             Builder.RegisterModule(new ModuleIOC());
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
@@ -57,11 +53,8 @@ namespace FrameBook.StackAPI
             }
 
             app.UseHttpsRedirection();
-
             app.UseRouting();
-
             app.UseSentryTracing();
-
             app.UseAuthentication();
             app.UseAuthorization();
 
@@ -72,9 +65,7 @@ namespace FrameBook.StackAPI
 
             app.UseSwagger();
             app.UseSwaggerUI(opt => {
-
                 opt.SwaggerEndpoint("/swagger/v1/Swagger.json", "Swagger V1");
-
             });
 
             app.UseHealthChecks("/health", new HealthCheckOptions
@@ -82,6 +73,7 @@ namespace FrameBook.StackAPI
                 Predicate = p => true,
                 ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
             });
+
             app.UseHealthChecksUI(options => { options.UIPath = "/dashboard"; });
         }
     }

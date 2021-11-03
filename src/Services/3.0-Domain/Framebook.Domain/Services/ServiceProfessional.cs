@@ -1,0 +1,62 @@
+﻿using AutoMapper;
+using Framebook.Business.DTO.DTO;
+using Framebook.Domain.Interfaces.Repositories;
+using Framebook.Domain.Interfaces.Services;
+using Framebook.Domain.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace Framebook.Domain.Services
+{
+    public class ServiceProfessional : ServiceBase<Professional>, IServiceProfessional
+    {
+        public readonly IRepositoryProfessional _repositoryProfessional;
+        IMapper _mapper;
+
+        public ServiceProfessional(IRepositoryProfessional repositoryProfessional, IMapper mapper)
+            : base(repositoryProfessional)
+        {
+            _repositoryProfessional = repositoryProfessional;
+            _mapper = mapper;
+        }
+
+        public ProfessionalDTO GetByEmail(string email)
+        {
+            var Professional = _repositoryProfessional.GetByEmail(email);
+
+            ProfessionalDTO retornoDTO = new ProfessionalDTO();
+
+            if (Professional != null)
+            {
+                retornoDTO.ProfessionalId = Professional.ProfessionalId;
+                retornoDTO.Nome = Professional.Nome;
+                retornoDTO.Email = Professional.Email;
+                retornoDTO.Telefone = Professional.Telefone;
+                retornoDTO.Cidade = Professional.Cidade;
+                retornoDTO.Uf = Professional.Uf;
+                retornoDTO.DataCadastro = Professional.DataCadastro;
+            }
+           
+            return retornoDTO;
+        }
+
+        public List<ProfessionalDTO> GetAll()
+        {
+            var profissionais = _repositoryProfessional.GetAll();
+
+            List<ProfessionalDTO> retornoDTO = profissionais.Select(x => new ProfessionalDTO()
+            {
+                ProfessionalId = x.ProfessionalId,
+                Nome = x.Nome,
+                Email = x.Email,
+                Telefone = x.Telefone,
+                Cidade = x.Cidade,
+                Uf = x.Uf,
+                DataCadastro = x.DataCadastro
+            }).ToList();
+
+            return retornoDTO;
+        }
+    }
+}

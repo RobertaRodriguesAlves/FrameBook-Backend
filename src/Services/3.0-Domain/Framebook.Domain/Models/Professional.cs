@@ -1,17 +1,16 @@
-﻿namespace Web.FrameBook.HttpAggregator.Models
+﻿using System;
+
+namespace Framebook.Domain.Models
 {
-    internal class ProfissionalDTO
+    public class Professional
     {
-        public int? Id { get; set; }
-
+        public Guid ProfessionalId { get; set; }
         public string Nome { get; set; }
-
         public string Email { get; set; }
-
         public string Telefone { get; set; }
-
         public string Cidade { get; set; }
-
         public string Uf { get; set; }
+        public DateTime DataCadastro { get; set; }
+        public string Senha { get; set; }
     }
 }

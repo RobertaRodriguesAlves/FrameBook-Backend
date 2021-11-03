@@ -2,15 +2,15 @@
 
 namespace Web.FrameBook.HttpAggregator.Models
 {
-    internal class ProfissionalStacksDTO
+    internal class ProfessionalStacksDTO
     {
-        public ProfissionalDTO profissionalDTO { get; set; }
+        public ProfessionalDTO ProfessionalDTO { get; set; }
 
         public IList<StacksDTO> StacksExperiencia { get; set; }
 
         public IList<StacksDTO> StacksDesejaAprender { get; set; }
 
-        public ProfissionalStacksDTO()
+        public ProfessionalStacksDTO()
         {
             StacksExperiencia = new List<StacksDTO>();
             StacksDesejaAprender = new List<StacksDTO>();

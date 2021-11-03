@@ -4,13 +4,13 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Framebook.Infra.Data.EntityConfig
 {
-    public class ProfissionalMap : IEntityTypeConfiguration<Profissional>
+    public class ProfessionalMap : IEntityTypeConfiguration<Professional>
     {
-        public void Configure(EntityTypeBuilder<Profissional> builder)
+        public void Configure(EntityTypeBuilder<Professional> builder)
         {
-            builder.ToTable("Profissional");
+            builder.ToTable("Professional");
 
-            builder.HasKey(x => x.Id_Profissional);
+            builder.HasKey(x => x.ProfessionalId);
 
             builder.Property(p => p.Nome).IsRequired();
             builder.Property(p => p.Email).IsRequired();

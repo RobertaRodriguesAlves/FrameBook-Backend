@@ -17,9 +17,9 @@ namespace Framebook.Infra.Data.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 64)
                 .HasAnnotation("ProductVersion", "5.0.11");
 
-            modelBuilder.Entity("Framebook.Domain.Models.Profissional", b =>
+            modelBuilder.Entity("Framebook.Domain.Models.Professional", b =>
                 {
-                    b.Property<Guid>("Id_Profissional")
+                    b.Property<Guid>("ProfessionalId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("char(36)");
 
@@ -51,12 +51,12 @@ namespace Framebook.Infra.Data.Migrations
                         .HasColumnType("char(2)")
                         .IsFixedLength(true);
 
-                    b.HasKey("Id_Profissional");
+                    b.HasKey("ProfessionalId");
 
                     b.HasIndex("Email")
                         .IsUnique();
 
-                    b.ToTable("Profissional");
+                    b.ToTable("Professional");
                 });
 
             modelBuilder.Entity("Framebook.Domain.Models.RefreshToken", b =>

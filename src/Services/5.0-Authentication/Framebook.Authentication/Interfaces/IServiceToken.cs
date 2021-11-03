@@ -6,7 +6,7 @@ namespace Framebook.Authentication.Interfaces
 {
     public interface IServiceToken
     {
-        string GenerateToken(ProfissionalDTO obj, string secretKey = "");
+        string GenerateToken(ProfessionalDTO obj, string secretKey = "");
 
         JwtSecurityToken Verify(string token, string secretKey = "");
 

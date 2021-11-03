@@ -10,7 +10,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Serilog;
-using System;
 
 namespace FrameBook.AuthAPI
 {
@@ -23,17 +22,15 @@ namespace FrameBook.AuthAPI
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             var host = Configuration["DBHOST"] ?? "localhost";
             var port = Configuration["DBPORT"] ?? "3306";
             var pass = Configuration["DBPASS"] ?? "framework";
             var mysqlConn = $"server={host};uid=root;pwd={pass};port={port};database=dbframebook";
+
             services.AddDbContext<DatabaseContext>(options => options.UseMySql(mysqlConn, ServerVersion.AutoDetect(mysqlConn)));
-
             services.AddControllers();
-
             services.AddHealthChecks().AddMySql(Configuration.GetConnectionString("DefaultConnection"));
 
             services.AddHealthChecksUI(options =>
@@ -59,7 +56,6 @@ namespace FrameBook.AuthAPI
             Builder.RegisterModule(new ModuleIOC());
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
@@ -68,9 +64,7 @@ namespace FrameBook.AuthAPI
             }
 
             app.UseHttpsRedirection();
-
             app.UseRouting();
-
             app.UseAuthentication();
             app.UseAuthorization();
 
@@ -82,9 +76,7 @@ namespace FrameBook.AuthAPI
             app.UseSwagger();
             app.UseSwaggerUI(opt =>
             {
-
                 opt.SwaggerEndpoint("/swagger/v1/Swagger.json", "Swagger V1");
-
             });
 
             app.UseHealthChecks("/health", new HealthCheckOptions

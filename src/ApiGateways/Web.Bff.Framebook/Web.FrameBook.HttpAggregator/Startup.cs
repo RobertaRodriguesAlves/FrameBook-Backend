@@ -24,7 +24,7 @@ namespace Web.FrameBook.HttpAggregator
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddOcelot(configuration)
-                .AddTransientDefinedAggregator<ProfissionalStacksAggregator>();
+                .AddTransientDefinedAggregator<ProfessionalStacksAggregator>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
 

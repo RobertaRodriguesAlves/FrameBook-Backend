@@ -21,6 +21,6 @@ namespace Framebook.Business.DTO.DTO
         public string ReplaceByToken { get; set; }
         [NotMapped]
         public bool IsActive => Revoked == null && !IsExpired;
-        public ProfissionalDTO obj { get; set; }
+        public ProfessionalDTO obj { get; set; }
     }
 }

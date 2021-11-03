@@ -20,19 +20,19 @@ namespace Framebook.Infra.CrossCutting.IOC
         {
             #region IOC Application
             builder.RegisterType<BusinessServiceGestaoStack>().As<IBusinessServiceGestaoStack>();
-            builder.RegisterType<BusinessServiceGestaoProfissional>().As<IBusinessServiceGestaoProfissional>();
+            builder.RegisterType<BusinessServiceGestaoProfessional>().As<IBusinessServiceGestaoProfessional>();
             builder.RegisterType<BusinessServiceGestaoAuth>().As<IBusinessServiceGestaoAuth>();
             #endregion
 
             #region IOC Services
             builder.RegisterType<ServiceStack>().As<IServiceStack>();
-            builder.RegisterType<ServiceProfissional>().As<IServiceProfissional>();
+            builder.RegisterType<ServiceProfessional>().As<IServiceProfessional>();
             builder.RegisterType<ServiceRefreshToken>().As<IServiceRefreshToken>();
             #endregion
 
             #region IOC Repositorys SQL
             builder.RegisterType<RepositoryStack>().As<IRepositoryStack>();
-            builder.RegisterType<RepositoryProfissional>().As<IRepositoryProfissional>();
+            builder.RegisterType<RepositoryProfessional>().As<IRepositoryProfessional>();
             builder.RegisterType<RepositoryRefreshToken>().As<IRepositoryAuth>();
             #endregion
 
@@ -53,10 +53,10 @@ namespace Framebook.Infra.CrossCutting.IOC
                 cfg.CreateMap<List<RefreshToken>, List<RefreshTokenDTO>>();
                 #endregion
 
-                cfg.CreateMap<Profissional, ProfissionalDTO>();
-                cfg.CreateMap<ProfissionalDTO, Profissional>();
-                cfg.CreateMap<List<ProfissionalDTO>, List<Profissional>>();
-                cfg.CreateMap<List<Profissional>, List<ProfissionalDTO>>();
+                cfg.CreateMap<Professional, ProfessionalDTO>();
+                cfg.CreateMap<ProfessionalDTO, Professional>();
+                cfg.CreateMap<List<ProfessionalDTO>, List<Professional>>();
+                cfg.CreateMap<List<Professional>, List<ProfessionalDTO>>();
             })).AsSelf().SingleInstance();
 
             builder.Register(c =>

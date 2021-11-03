@@ -4,9 +4,9 @@ using System.Collections.Generic;
 
 namespace Framebook.Domain.Interfaces.Services
 {
-    public interface IServiceProfissional : IServiceBase<Profissional>
+    public interface IServiceProfessional : IServiceBase<Professional>
     {
-        ProfissionalDTO GetByEmail(string email);
-        List<ProfissionalDTO> GetAll();
+        ProfessionalDTO GetByEmail(string email);
+        List<ProfessionalDTO> GetAll();
     }
 }

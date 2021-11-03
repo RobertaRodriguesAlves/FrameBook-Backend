@@ -4,7 +4,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Serilog;
 
-namespace FrameBook.ProfissionalAPI
+namespace FrameBook.ProfessionalAPI
 {
     public class Program
     {

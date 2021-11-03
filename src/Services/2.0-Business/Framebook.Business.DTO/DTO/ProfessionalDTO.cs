@@ -2,9 +2,9 @@ using System;
 
 namespace Framebook.Business.DTO.DTO
 {
-    public class ProfissionalDTO
+    public class ProfessionalDTO
     {
-        public Guid Id_Profissional { get; set; }
+        public Guid ProfessionalId { get; set; }
         public string Nome { get; set; }
         public string Email { get; set; }    
         public string Telefone { get; set; }
