@@ -17,17 +17,20 @@ namespace Framebook.Infra.Data
         {
             foreach (var entry in ChangeTracker.Entries())
             {
-                if (entry.State == EntityState.Added)
+                if (entry.Entity.ToString() == "Framebook.Domain.Models.Professional")
                 {
-                    entry.Property("DataCadastro").CurrentValue = DateTime.Now;
-                    entry.Property("Id_Professional").CurrentValue = Guid.NewGuid();
-                }
+                    if (entry.State == EntityState.Added)
+                    {
+                        entry.Property("DataCadastro").CurrentValue = DateTime.Now;
+                        entry.Property("ProfessionalId").CurrentValue = Guid.NewGuid();
+                    }
 
-                if (entry.State == EntityState.Modified)
-                {
-                    entry.Property("DataCadastro").IsModified = false;
-                    entry.Property("Id_Professional").IsModified = false;
-                }
+                    if (entry.State == EntityState.Modified)
+                    {
+                        entry.Property("DataCadastro").IsModified = false;
+                        entry.Property("ProfessionalId").IsModified = false;
+                    }
+                }           
             }
 
             return base.SaveChanges();

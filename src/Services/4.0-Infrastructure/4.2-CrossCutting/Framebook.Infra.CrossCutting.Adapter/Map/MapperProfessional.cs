@@ -19,7 +19,8 @@ namespace Framebook.Infra.CrossCutting.Adapter.Map
                 Telefone = ProfessionalDTO.Telefone,
                 Cidade = ProfessionalDTO.Cidade,
                 Uf = ProfessionalDTO.Uf,
-                Senha = ProfessionalDTO.Senha
+                Senha = ProfessionalDTO.Senha,
+                Role = ProfessionalDTO.Role
             };
 
             return Professional;
@@ -37,7 +38,8 @@ namespace Framebook.Infra.CrossCutting.Adapter.Map
                     Telefone = item.Telefone,
                     Cidade = item.Cidade,
                     Uf = item.Uf,
-                    Senha = item.Senha
+                    Senha = item.Senha,
+                    Role = item.Role
                 };
 
                 ProfessionalDTOs.Add(ProfessionalDTO);
@@ -57,7 +59,8 @@ namespace Framebook.Infra.CrossCutting.Adapter.Map
                 Telefone = Professional.Telefone,
                 Cidade = Professional.Cidade,
                 Uf = Professional.Uf,
-                Senha = Professional.Senha
+                Senha = Professional.Senha,
+                Role = Professional.Role
             };
 
             return ProfessionalDTO;

@@ -1,8 +1,10 @@
-﻿namespace Web.FrameBook.HttpAggregator.Models
+﻿using System;
+
+namespace Web.FrameBook.HttpAggregator.Models
 {
     internal class ProfessionalDTO
     {
-        public int? Id { get; set; }
+        public Guid ProfessionalId { get; set; }
 
         public string Nome { get; set; }
 

@@ -36,6 +36,7 @@ namespace Framebook.Domain.Services
                 retornoDTO.Cidade = Professional.Cidade;
                 retornoDTO.Uf = Professional.Uf;
                 retornoDTO.DataCadastro = Professional.DataCadastro;
+                retornoDTO.Role = Professional.Role;
             }
            
             return retornoDTO;
@@ -53,7 +54,8 @@ namespace Framebook.Domain.Services
                 Telefone = x.Telefone,
                 Cidade = x.Cidade,
                 Uf = x.Uf,
-                DataCadastro = x.DataCadastro
+                DataCadastro = x.DataCadastro,
+                Role = x.Role
             }).ToList();
 
             return retornoDTO;
