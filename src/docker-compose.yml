@@ -8,7 +8,7 @@ services:
       dockerfile: Services/1.0-Presentation/FrameBook.AuthAPI/Dockerfile
 
   framebook.Professionalapi:
-    image: ${DOCKER_REGISTRY-}framebookProfessionalapi
+    image: ${DOCKER_REGISTRY-}framebookprofessionalapi
     build:
       context: .
       dockerfile: Services/1.0-Presentation/FrameBook.ProfessionalAPI/Dockerfile

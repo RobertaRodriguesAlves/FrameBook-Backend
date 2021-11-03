@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Framebook.Infra.Data.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20211103175423_InitialDb")]
+    [Migration("20211103193358_InitialDb")]
     partial class InitialDb
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
