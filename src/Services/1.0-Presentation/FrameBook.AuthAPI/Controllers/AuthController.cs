@@ -37,7 +37,7 @@ namespace FrameBook.AuthAPI.Controllers
                 var professional = _businessServiceGestaoAuth.GetToken(autenticacao.Email, autenticacao.Senha);
 
                 if (professional.Email == null)
-                    return NotFound(new { message = "Usuário não cadastrado." });
+                    return NotFound(new { message = "Usuário ou senha incorretos!" });
                 else
                 {
                     ServiceToken serviceToken = new ServiceToken();
