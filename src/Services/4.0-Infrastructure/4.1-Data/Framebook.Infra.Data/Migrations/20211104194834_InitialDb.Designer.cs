@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Framebook.Infra.Data.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20211103193358_InitialDb")]
+    [Migration("20211104194834_InitialDb")]
     partial class InitialDb
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -108,20 +108,6 @@ namespace Framebook.Infra.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("RefreshToken");
-                });
-
-            modelBuilder.Entity("Framebook.Domain.Models.Stack", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("varchar(255)");
-
-                    b.Property<string>("Nome")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Stack");
                 });
 #pragma warning restore 612, 618
         }

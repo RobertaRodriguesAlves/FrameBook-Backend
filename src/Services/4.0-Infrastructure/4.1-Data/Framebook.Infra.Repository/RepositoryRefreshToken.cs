@@ -15,9 +15,9 @@ namespace Framebook.Infra.Repository
             _context = Context;
         }
 
-        public Professional GetByEmail(string email)
+        public Professional GetToken(string email, string senha)
         {
-            var Professional = _context.Profissionais.Where(p => p.Email == email.ToLower()).FirstOrDefault();
+            var Professional = _context.Profissionais.Where(p => p.Email == email.ToLower() && p.Senha == senha).FirstOrDefault();
             return Professional;
         }
     }

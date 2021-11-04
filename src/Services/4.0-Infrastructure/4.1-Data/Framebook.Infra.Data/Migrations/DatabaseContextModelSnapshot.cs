@@ -107,20 +107,6 @@ namespace Framebook.Infra.Data.Migrations
 
                     b.ToTable("RefreshToken");
                 });
-
-            modelBuilder.Entity("Framebook.Domain.Models.Stack", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("varchar(255)");
-
-                    b.Property<string>("Nome")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Stack");
-                });
 #pragma warning restore 612, 618
         }
     }

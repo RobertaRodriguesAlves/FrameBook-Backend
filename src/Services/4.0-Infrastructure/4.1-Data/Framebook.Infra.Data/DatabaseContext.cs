@@ -10,7 +10,6 @@ namespace Framebook.Infra.Data
         public DatabaseContext(DbContextOptions<DatabaseContext> options) : base(options) { }
 
         public DbSet<Professional> Profissionais { get; set; }
-        public DbSet<Stack> Stacks { get; set; }
         public DbSet<RefreshToken> RefreshToken { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -20,7 +19,6 @@ namespace Framebook.Infra.Data
             });
 
             modelBuilder.ApplyConfiguration(new ProfessionalMap());
-            modelBuilder.ApplyConfiguration(new StackMap());
             modelBuilder.ApplyConfiguration(new RefreshTokenMap());
         }
     }

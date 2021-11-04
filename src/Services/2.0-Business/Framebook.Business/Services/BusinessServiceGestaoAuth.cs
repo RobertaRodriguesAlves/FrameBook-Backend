@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Framebook.Business.DTO.DTO;
 using Framebook.Business.Interfaces;
 using Framebook.Domain.Interfaces.Services;
 using Framebook.Domain.Models;
@@ -23,6 +24,13 @@ namespace Framebook.Business.Services
             _serviceRefreshToken.Add(objRefreshToken);
 
             return new { };
+        }
+
+        public ProfessionalDTO GetToken(string email, string senha)
+        {
+            ProfessionalDTO auth;
+            auth = _serviceRefreshToken.GetToken(email, senha);
+            return _mapper.Map<ProfessionalDTO>(auth);
         }
     }
 }
