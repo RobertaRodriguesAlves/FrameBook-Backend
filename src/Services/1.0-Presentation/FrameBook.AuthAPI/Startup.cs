@@ -69,7 +69,7 @@ namespace FrameBook.AuthAPI
             app.UseRouting();
 
             app.UseCors(x => x
-               .WithOrigins("http://localhost.com:9000")
+               .WithOrigins("http://localhost:9000")
                .AllowAnyMethod()
                .AllowAnyHeader()
                .SetIsOriginAllowed(origin => true) // allow any origin
