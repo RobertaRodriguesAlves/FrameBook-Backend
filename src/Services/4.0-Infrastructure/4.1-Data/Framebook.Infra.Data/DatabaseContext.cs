@@ -1,7 +1,6 @@
 ﻿using Framebook.Domain.Models;
 using Framebook.Infra.Data.EntityConfig;
 using Microsoft.EntityFrameworkCore;
-using System;
 
 namespace Framebook.Infra.Data
 {

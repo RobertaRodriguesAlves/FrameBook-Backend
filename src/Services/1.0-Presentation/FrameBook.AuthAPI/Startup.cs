@@ -85,6 +85,12 @@ namespace FrameBook.AuthAPI
                 ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
             });
             app.UseHealthChecksUI(options => { options.UIPath = "/dashboard"; });
+
+            app.UseCors(x => x
+                .AllowAnyMethod()
+                .AllowAnyHeader()
+                .SetIsOriginAllowed(origin => true) // allow any origin
+                .AllowCredentials()); // allow credentials
         }
     }
 }
