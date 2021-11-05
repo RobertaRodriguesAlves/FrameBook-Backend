@@ -58,7 +58,7 @@ namespace FrameBook.ProfessionalAPI.Controllers
             [FromBody] ProfessionalDTO professionalDTO)
         {
             if (professionalDTO == null)
-                return NotFound();
+                return NotFound(professionalDTO);
 
             professionalDTO.ProfessionalId = Guid.NewGuid();
             professionalDTO.DataCadastro = DateTime.Now;
