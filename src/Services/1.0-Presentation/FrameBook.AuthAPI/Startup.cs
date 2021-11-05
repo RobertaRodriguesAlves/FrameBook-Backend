@@ -24,6 +24,8 @@ namespace FrameBook.AuthAPI
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors();
+
             var host = Configuration["DBHOST"] ?? "localhost";
             var port = Configuration["DBPORT"] ?? "3306";
             var pass = Configuration["DBPASS"] ?? "framework";
@@ -65,6 +67,14 @@ namespace FrameBook.AuthAPI
 
             app.UseHttpsRedirection();
             app.UseRouting();
+
+            app.UseCors(x => x
+               .WithOrigins("http://localhost.com:9000")
+               .AllowAnyMethod()
+               .AllowAnyHeader()
+               .SetIsOriginAllowed(origin => true) // allow any origin
+               .AllowCredentials()); // allow credentials
+
             app.UseAuthentication();
             app.UseAuthorization();
 
@@ -85,12 +95,6 @@ namespace FrameBook.AuthAPI
                 ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
             });
             app.UseHealthChecksUI(options => { options.UIPath = "/dashboard"; });
-
-            app.UseCors(x => x
-                .AllowAnyMethod()
-                .AllowAnyHeader()
-                .SetIsOriginAllowed(origin => true) // allow any origin
-                .AllowCredentials()); // allow credentials
         }
     }
 }
