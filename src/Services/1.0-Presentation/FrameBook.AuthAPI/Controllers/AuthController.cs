@@ -49,7 +49,7 @@ namespace FrameBook.AuthAPI.Controllers
 
                     return new
                     {
-                        user = new { name = professional.Nome, email = professional.Email, cidade = professional.Cidade, estado = professional.Uf, telefone = professional.Telefone, token = token, refreshToken = refreshToken.Token }
+                        user = new { nome = professional.Nome, email = professional.Email, cidade = professional.Cidade, estado = professional.Uf, telefone = professional.Telefone, token = token, refreshToken = refreshToken.Token }
                     };
                 }
             }

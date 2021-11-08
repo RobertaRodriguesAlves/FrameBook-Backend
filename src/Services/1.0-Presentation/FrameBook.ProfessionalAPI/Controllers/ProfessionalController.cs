@@ -66,7 +66,11 @@ namespace FrameBook.ProfessionalAPI.Controllers
             try
             {
                 _businessServiceGestaoProfessional.Add(professionalDTO);
-                return Ok("Professional cadastrado com sucesso!");
+                var Professional = _businessServiceGestaoProfessional.GetByEmail(professionalDTO.Email);
+                var ProfessionalDTO = _mapper.Map<ProfessionalDTO>(Professional);
+
+                return Ok(ProfessionalDTO);
+
             }
             catch (Exception)
             {
