@@ -20,7 +20,7 @@ namespace Framebook.Infra.Data
 
 
             modelBuilder.Entity<StackAprender>(entity => {
-                entity.HasIndex(x => new { x.ProfissionalId, x.StackId });
+                entity.HasKey(x => new { x.ProfissionalId, x.StackId });
             });
 
 
