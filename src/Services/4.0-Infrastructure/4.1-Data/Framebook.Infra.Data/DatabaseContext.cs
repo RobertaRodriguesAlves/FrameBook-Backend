@@ -10,12 +10,19 @@ namespace Framebook.Infra.Data
 
         public DbSet<Professional> Profissionais { get; set; }
         public DbSet<RefreshToken> RefreshToken { get; set; }
+        public DbSet<StackAprender> StackAprender { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Professional>(entity => {
                 entity.HasIndex(e => e.Email).IsUnique();
             });
+
+
+            modelBuilder.Entity<StackAprender>(entity => {
+                entity.HasIndex(x => new { x.ProfissionalId, x.StackId });
+            });
+
 
             modelBuilder.ApplyConfiguration(new ProfessionalMap());
             modelBuilder.ApplyConfiguration(new RefreshTokenMap());

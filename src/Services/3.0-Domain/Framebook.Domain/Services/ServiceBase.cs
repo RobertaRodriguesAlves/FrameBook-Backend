@@ -24,7 +24,6 @@ namespace Framebook.Domain.Services
         {
             _repository.Remove(obj);
         }
-
         public virtual void Dispose()
         {
             _repository.Dispose();
