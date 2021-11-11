@@ -3,14 +3,16 @@ using System;
 using Framebook.Infra.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Framebook.Infra.Data.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20211110130604_AddStacksAprender")]
+    partial class AddStacksAprender
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -119,19 +121,6 @@ namespace Framebook.Infra.Data.Migrations
                     b.HasKey("ProfissionalId", "StackId");
 
                     b.ToTable("StackAprender");
-                });
-
-            modelBuilder.Entity("Framebook.Domain.Models.StackExperiencia", b =>
-                {
-                    b.Property<int>("ProfissionalId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("StackId")
-                        .HasColumnType("int");
-
-                    b.HasKey("ProfissionalId", "StackId");
-
-                    b.ToTable("StackExperiencia");
                 });
 #pragma warning restore 612, 618
         }

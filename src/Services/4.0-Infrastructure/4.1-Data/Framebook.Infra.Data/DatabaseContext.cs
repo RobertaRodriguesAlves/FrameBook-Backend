@@ -18,14 +18,18 @@ namespace Framebook.Infra.Data
                 entity.HasIndex(e => e.Email).IsUnique();
             });
 
-
             modelBuilder.Entity<StackAprender>(entity => {
                 entity.HasKey(x => new { x.ProfissionalId, x.StackId });
             });
 
+            modelBuilder.Entity<StackExperiencia>(entity => {
+                entity.HasKey(x => new { x.ProfissionalId, x.StackId });
+            });
 
             modelBuilder.ApplyConfiguration(new ProfessionalMap());
             modelBuilder.ApplyConfiguration(new RefreshTokenMap());
+            modelBuilder.ApplyConfiguration(new StackAprenderMap());
+            modelBuilder.ApplyConfiguration(new StackExperienciaMap());
         }
     }
 }

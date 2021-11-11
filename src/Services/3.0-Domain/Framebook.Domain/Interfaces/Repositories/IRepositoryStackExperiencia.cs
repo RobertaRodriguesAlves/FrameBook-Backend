@@ -6,7 +6,7 @@ namespace Framebook.Domain.Interfaces.Repositories
 {
     public interface IRepositoryStackExperiencia : IRepositoryBase<StackExperiencia>
     {
-        StackExperiencia GetById(Int32 Id);
+        StackExperiencia GetById(Guid Id);
         List<StackExperiencia> GetAll();
 
     }

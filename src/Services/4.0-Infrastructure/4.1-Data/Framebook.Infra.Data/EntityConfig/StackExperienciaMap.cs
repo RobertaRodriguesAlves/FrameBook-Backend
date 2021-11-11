@@ -8,11 +8,7 @@ namespace Framebook.Infra.Data.EntityConfig
     {
         public void Configure(EntityTypeBuilder<StackExperiencia> builder)
         {
-            builder.ToTable("StackAprender");
-
-            builder.HasKey(x => x.Id);
-
-            builder.Property(p => p.Descricao).IsRequired();
+            builder.ToTable("StackExperiencia");
         }
     }
 }
