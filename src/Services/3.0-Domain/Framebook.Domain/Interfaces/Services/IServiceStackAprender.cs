@@ -1,13 +1,12 @@
-﻿
-using Framebook.Business.DTO.DTO;
-using Framebook.Domain.Models;
+﻿using Framebook.Domain.Models;
+using System;
 using System.Collections.Generic;
 
 namespace Framebook.Domain.Interfaces.Services
 {
     public interface IServiceStackAprender : IServiceBase<StackAprender>
     {
-        StackAprender GetById(int Id);
+        IEnumerable<StackAprender> GetByProfissionalId(Guid professionalId);
         List<StackAprender> GetAll();
     }
 }

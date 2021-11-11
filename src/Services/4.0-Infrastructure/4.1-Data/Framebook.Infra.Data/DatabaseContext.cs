@@ -11,6 +11,7 @@ namespace Framebook.Infra.Data
         public DbSet<Professional> Profissionais { get; set; }
         public DbSet<RefreshToken> RefreshToken { get; set; }
         public DbSet<StackAprender> StackAprender { get; set; }
+        public DbSet<StackExperiencia> StackExperiencia { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

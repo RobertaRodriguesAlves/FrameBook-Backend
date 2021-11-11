@@ -1,42 +1,28 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Framebook.Infra.Repository
-{
-    class RepositoryStackAprender
-    {
-    }
-}
-
-
-using Framebook.Domain.Interfaces.Repositories;
+﻿using Framebook.Domain.Interfaces.Repositories;
 using Framebook.Domain.Models;
 using Framebook.Infra.Data;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace Framebook.Infra.Repository
 {
-    public class RepositoryProfessional : RepositoryBase<Professional>, IRepositoryProfessional
+    public class RepositoryStackAprender : RepositoryBase<StackAprender>, IRepositoryStackAprender
     {
         private readonly DatabaseContext _context;
-        public RepositoryProfessional(DatabaseContext Context)
+        public RepositoryStackAprender(DatabaseContext Context)
             : base(Context)
         {
             _context = Context;
+        }  
+        public IEnumerable<StackAprender> GetByProfissionalId(Guid professionalId)
+        {
+            return _context.StackAprender.Where(p => p.ProfissionalId == professionalId);
         }
 
-        public Professional GetByEmail(string email)
+        public List<StackAprender> GetAll()
         {
-            return _context.Profissionais.Where(p => p.Email == email.ToLower()).FirstOrDefault();
-        }
-
-        public List<Professional> GetAll()
-        {
-            return _context.Profissionais.ToList();
+            return _context.StackAprender.ToList();
         }
     }
 }

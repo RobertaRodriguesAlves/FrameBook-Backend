@@ -6,7 +6,7 @@ namespace Framebook.Domain.Interfaces.Repositories
 {
     public interface IRepositoryStackAprender : IRepositoryBase<StackAprender>
     {
-        StackAprender GetById(Guid Id);
-        IEnumerable<StackAprender> GetAll();
+        IEnumerable<StackAprender> GetByProfissionalId(Guid professionalId);
+        List<StackAprender> GetAll();    
     }
 }

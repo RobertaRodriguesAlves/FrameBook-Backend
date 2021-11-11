@@ -2,9 +2,9 @@
 using System;
 using System.Collections.Generic;
 
-namespace Framebook.Domain.Interfaces.Repositories
+namespace Framebook.Domain.Interfaces.Services
 {
-    public interface IRepositoryStackExperiencia : IRepositoryBase<StackExperiencia>
+    public interface IServiceStackExperiencia : IServiceBase<StackExperiencia>
     {
         IEnumerable<StackExperiencia> GetByProfissionalId(Guid professionalId);
         List<StackExperiencia> GetAll();

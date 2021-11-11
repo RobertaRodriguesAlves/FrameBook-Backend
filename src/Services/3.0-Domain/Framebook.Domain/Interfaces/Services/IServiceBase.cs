@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Framebook.Domain.Models;
+using System.Collections.Generic;
 
 namespace Framebook.Domain.Interfaces.Services
 {
@@ -10,6 +11,6 @@ namespace Framebook.Domain.Interfaces.Services
 
         void Remove(TEntity obj);
 
-        void Dispose();
+        void Dispose();       
     }
 }

@@ -13,7 +13,5 @@ namespace Framebook.Domain.Models
         public string Cidade { get; set; }
         public string Uf { get; set; }
         public DateTime DataCadastro { get; set; }   
-        
-        //public Perfil Perfil { get; set; }       
     }
 }
